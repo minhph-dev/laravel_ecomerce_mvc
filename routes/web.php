@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Admin\Brand\Index;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +34,10 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::get('/collections', [FrontendController::class, 'categories']);
 Route::get('/collections/{category_slug}', [FrontendController::class, 'products']);
 Route::get('/collections/{category_slug}/{product_slug}', [FrontendController::class, 'productView']);
+Route::middleware(['auth'])->group(function(){
+    Route::get('/wishlist', [WishlistController::class, 'index']);
+    Route::get('/cart', [CartController::class, 'index']);
+});
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){

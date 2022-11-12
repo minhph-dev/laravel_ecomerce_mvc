@@ -64,6 +64,27 @@ php artisan make:migration add_category_id_to_brands_table
 
 php artisan make:livewire Frontend/Product/View
 
+php artisan make:migration create_wishlists_table
+php artisan make:model Wishlist
+
+<!-- JavaScript -->
+<!-- <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script> -->
+<!-- CSS -->
+<!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/> -->
+<!-- Default theme -->
+<!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/> -->
+
+php artisan make:controller Frontend/WishlistController
+php artisan make:livewire Frontend/WishlistShow
+
+php artisan make:livewire Frontend/WishlistCount
+
+php artisan make:migration create_carts_table
+php artisan make:model Cart
+
+php artisan make:livewire Frontend/Cart/CartCount
+php artisan make:controller Frontend/CartController
+php artisan make:livewire Frontend/Cart/CartShow
 
 
 
