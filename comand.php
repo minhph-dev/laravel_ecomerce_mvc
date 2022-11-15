@@ -86,6 +86,16 @@ php artisan make:livewire Frontend/Cart/CartCount
 php artisan make:controller Frontend/CartController
 php artisan make:livewire Frontend/Cart/CartShow
 
+php artisan make:controller Frontend/CheckoutController
+php artisan make:livewire Frontend/Checkout/CheckoutShow
+
+
+php artisan make:migration create_orders_table
+php artisan make:migration create_order_items_table
+php artisan make:model Order
+php artisan make:model OrderItem
+
+php artisan make:controller Frontend/OrderController
 
 
 */
