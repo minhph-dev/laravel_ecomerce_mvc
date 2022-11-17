@@ -119,13 +119,19 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label for="">Trending</label>
-                                            <input type="checkbox" name="trending" name="trending">
+                                            <input type="checkbox" name="trending">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="">Featured</label>
+                                            <input type="checkbox" name="featured">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label for="">Status</label>
-                                            <input type="checkbox" name="status" name="status">
+                                            <input type="checkbox" name="status">
                                         </div>
                                     </div>
                                 </div>

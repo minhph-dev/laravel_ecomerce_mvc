@@ -97,5 +97,13 @@ php artisan make:model OrderItem
 
 php artisan make:controller Frontend/OrderController
 
+php artisan make:controller Admin/OrderController
+
+composer require barryvdh/laravel-dompdf\
+php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider
+
+php artisan make:migration create_settings_table
+php artisan make:model Setting
+
 
 */

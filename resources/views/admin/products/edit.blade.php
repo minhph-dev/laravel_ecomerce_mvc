@@ -132,14 +132,21 @@
                                         <div class="mb-3">
                                             <label for="">Trending</label>
                                             <input type="checkbox" name="trending"
-                                                value="{{ $product->trending == '1' ? 'checked' : '' }}" name="trending">
+                                                {{ $product->trending == '1' ? 'checked' : '' }}>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="">Featured</label>
+                                            <input type="checkbox" name="featured"
+                                                {{ $product->featured == '1' ? 'checked' : '' }}>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label for="">Status</label>
                                             <input type="checkbox" name="status"
-                                                value="{{ $product->status == '1' ? 'checked' : '' }}" name="status">
+                                                {{ $product->status == '1' ? 'checked' : '' }}>
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +282,7 @@
                 });
             });
 
-            $(document).on('click', '.deleteProductColorBtn', function(){
+            $(document).on('click', '.deleteProductColorBtn', function() {
                 var prod_color_id = $(this).val();
                 var thisClick = $(this);
                 $.ajax({

@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -32,10 +34,17 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [FrontendController::class, 'index']);
-Route::get('/collections', [FrontendController::class, 'categories']);
-Route::get('/collections/{category_slug}', [FrontendController::class, 'products']);
-Route::get('/collections/{category_slug}/{product_slug}', [FrontendController::class, 'productView']);
+Route::controller(FrontendController::class)->group(function(){
+    Route::get('/','index');
+    Route::get('/collections','categories');
+    Route::get('/collections/{category_slug}','products');
+    Route::get('/collections/{category_slug}/{product_slug}','productView');
+    Route::get('/new-arrivals', 'newArrivals');
+    Route::get('/featured-products', 'featuredProducts');
+});
+
+
+
 Route::middleware(['auth'])->group(function(){
     Route::get('/wishlist', [WishlistController::class, 'index']);
     Route::get('/cart', [CartController::class, 'index']);
@@ -49,6 +58,8 @@ Route::get('thank-you', [FrontendController::class, 'thankyou']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::get('settings', [SettingController::class, 'index']);
+    Route::post('settings', [SettingController::class, 'store']);
 
     Route::controller(SliderController::class)->group(function(){
        Route::get('/sliders', 'index');
@@ -89,5 +100,16 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
         Route::put('/colors/{color_id}', 'update');
         Route::get('/colors/{color_id}/delete', 'destroy');
     });
+
+
+    Route::controller(AdminOrderController::class)->group(function(){
+        Route::get('/orders', 'index');
+        Route::get('/orders/{orderId}', 'show');
+        Route::put('/orders/{orderId}', 'updateOrderStatus');
+        Route::get('/invoice/{orderId}', 'viewInvoice');
+        Route::get('/invoice/{orderId}/generate', 'generateInvoice');
+    });
+
+     
 
 });
