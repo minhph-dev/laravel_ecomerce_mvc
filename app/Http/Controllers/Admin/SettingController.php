@@ -18,7 +18,23 @@ class SettingController extends Controller
         $setting = Setting::first();
         if ($setting) {
             //update data
-
+            $setting->update([
+                'wedsite_name' => $request->wedsite_name,
+                'wedsite_url' => $request->wedsite_url,
+                'page_title' => $request->page_title,
+                'meta_keyword' => $request->meta_keyword,
+                'meta_description' => $request->meta_description,
+                'address' => $request->address,
+                'phone1' => $request->phone1,
+                'phone2' => $request->phone2,
+                'email1' => $request->email1,
+                'email2' => $request->email2,
+                'facebook' => $request->facebook,
+                'twitter' => $request->twitter,
+                'instagram' => $request->instagram,
+                'youtube' => $request->youtube
+            ]);
+            return redirect()->back()->with('message', 'Settings Saved');
         } else {
             //create data
             Setting::create([
@@ -30,10 +46,14 @@ class SettingController extends Controller
                 'address' => $request->address,
                 'phone1' => $request->phone1,
                 'phone2' => $request->phone2,
+                'email1' => $request->email1,
+                'email2' => $request->email2,
+                'facebook' => $request->facebook,
+                'twitter' => $request->twitter,
                 'instagram' => $request->instagram,
                 'youtube' => $request->youtube
             ]);
-            return redirect()->back()->with('message','Settings Created');
+            return redirect()->back()->with('message', 'Settings Saved');
         }
     }
 }

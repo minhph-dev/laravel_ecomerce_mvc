@@ -104,6 +104,11 @@ php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider
 
 php artisan make:migration create_settings_table
 php artisan make:model Setting
+php artisan make:controller Admin/UserController
+
+php artisan make:controller Frontend/UserController
+php artisan make:migration create_user_details_table
+php artisan make:model UserDetail
 
 
 */

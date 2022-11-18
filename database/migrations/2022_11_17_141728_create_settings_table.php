@@ -20,10 +20,13 @@ return new class extends Migration
             $table->string('page_title')->nullable();
             $table->string('meta_keyword')->nullable();
             $table->string('meta_description')->nullable();
-
             $table->string('address', 500)->nullable();
             $table->string('phone1')->nullable();
             $table->string('phone2')->nullable();
+            $table->string('email1')->nullable();
+            $table->string('email2')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
             $table->timestamps();
