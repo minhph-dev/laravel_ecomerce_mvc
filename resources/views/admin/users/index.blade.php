@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>User
-                        <a href="{{ url('admin/users/create') }}" class="btn btn-primary float-end">Add User</a>
+                        <a href="{{ url('admin/users/create') }}" class="btn btn-primary btn-sm text-white float-end">Add User</a>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -34,17 +34,17 @@
                                         @if ($user->role_as == '0')
                                             <label class="badge btn-primary">User</label>
                                         @elseif($user->role_as == '1')
-                                            <label class="badge btn-success">Admin</label>
+                                            <label class="badge btn-info">Admin</label>
                                         @else
                                             <label class="badge btn-danger">None</label>
                                         @endif
                                     </td>
                                     <td>
                                         <a href="{{ url('admin/users/' . $user->id . '/edit') }}"
-                                            class="btn btn-sm btn-success">Edit</a>
+                                            class="btn text-white btn-sm btn-success me-2">Edit</a>
                                         <a href="{{ url('admin/users/' . $user->id . '/delete') }}"
                                             onclick="return confirm('Are you sure, you want to delete this data ?');"\
-                                            class="btn btn-sm btn-danger">Delete</a>
+                                            class="btn text-white btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @empty

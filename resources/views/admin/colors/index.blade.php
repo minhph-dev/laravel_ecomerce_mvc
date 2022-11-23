@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Colors List
-                        <a href="{{ url('admin/colors/create') }}" class="btn btn-primary float-end">Add Color</a>
+                        <a href="{{ url('admin/colors/create') }}" class="btn btn-sm text-white btn-primary float-end">Add Color</a>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -31,8 +31,8 @@
                                     <td>{{ $color->status ? 'Hidden' : 'Visible' }}</td>
                                     <td>
                                         <a href="{{ url('admin/colors/' . $color->id . '/edit') }}"
-                                            class="btn btn-primary">Edit</a>
-                                        <a href="{{url('admin/colors/'.$color->id.'/delete')}}" onclick="return confirm('Are you sure you want delete this data')" class="btn btn-danger">Delete</a>
+                                            class="btn btn-sm text-white btn-primary">Edit</a>
+                                        <a href="{{url('admin/colors/'.$color->id.'/delete')}}" onclick="return confirm('Are you sure you want delete this data')" class="btn btn-sm text-white btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

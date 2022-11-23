@@ -5,23 +5,21 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="shopping-cart">
-
-                        <div class="cart-header d-none d-sm-none d-mb-block d-lg-block">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4>Products</h4>
-                                </div>
-                                <div class="col-md-2">
-                                    <h4>Price</h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>Remove</h4>
-                                </div>
-                            </div>
-                        </div>
-
                         @forelse ($wishlist as $wishlistItem)
                             @if ($wishlistItem->product)
+                                <div class="cart-header d-none d-sm-none d-mb-block d-lg-block">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>Products</h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h4>Price</h4>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4>Remove</h4>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="cart-item">
                                     <div class="row">
                                         <div class="col-md-6 my-auto">
@@ -39,11 +37,14 @@
                                         </div>
                                         <div class="col-md-4 col-12 my-auto">
                                             <div class="remove">
-                                                <button type="button" wire:click="removeWishlistItem({{$wishlistItem->id}})" class="btn btn-danger btn-sm">
+                                                <button type="button"
+                                                    wire:click="removeWishlistItem({{ $wishlistItem->id }})"
+                                                    class="btn btn-danger btn-sm">
                                                     <span wire:loading.remove>
                                                         <i class="fa fa-trash"></i> Remove
                                                     </span>
-                                                    <span wire:loading wire:target="removeWishlistItem">Removing...</span>
+                                                    <span wire:loading
+                                                        wire:target="removeWishlistItem">Removing...</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -51,7 +52,11 @@
                                 </div>
                             @endif
                         @empty
-                            <h4>No Wish list Added</h4>
+                            <div class="card">
+                                <h3 class="row text-center my-5">
+                                    <span class="text-danger">No Wishlist Avaiable</span>
+                                </h3>
+                            </div>
                         @endforelse
 
 

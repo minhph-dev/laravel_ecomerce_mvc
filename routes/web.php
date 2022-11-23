@@ -19,21 +19,6 @@ use App\Http\Livewire\Admin\Brand\Index;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
 
 Route::controller(FrontendController::class)->group(function(){
@@ -54,6 +39,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/wishlist', [WishlistController::class, 'index']);
     Route::get('/cart', [CartController::class, 'index']);
     Route::get('/checkout', [CheckoutController::class, 'index']);
+
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{orderId}', [OrderController::class, 'show']);
 
@@ -80,7 +66,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
        Route::get('/sliders/{slider}/delete', 'destroy');
     });
 
-    //Category
     Route::controller(CategoryController::class)->group(function(){
         Route::get('/category', 'index');
         Route::get('/category/create', 'create');
@@ -88,6 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
         Route::get('/category/{category}/edit', 'edit');
         Route::put('/category/{category}', 'update');
     });
+
     Route::get('/brands', Index::class);
 
     Route::controller(ProductController::class)->group(function(){
@@ -116,8 +102,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
         Route::get('/orders', 'index');
         Route::get('/orders/{orderId}', 'show');
         Route::put('/orders/{orderId}', 'updateOrderStatus');
+
         Route::get('/invoice/{orderId}', 'viewInvoice');
         Route::get('/invoice/{orderId}/generate', 'generateInvoice');
+        
+        Route::get('/invoice/{orderId}/email', 'mailInvoice');
     });
 
     Route::controller(UserController::class)->group(function(){

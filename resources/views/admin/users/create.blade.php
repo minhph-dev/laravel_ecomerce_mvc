@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3> Add User
-                        <a href="{{ url('admin/users') }}" class="btn btn-danger float-end">Back</a>
+                        <a href="{{ url('admin/users') }}" class="btn btn-danger btn-sm text-white float-end">Back</a>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -45,7 +45,7 @@
                                 </select>
                             </div>
                             <div class="col-md-12 text-end">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary text-white">Save</button>
                             </div>
                         </div>
                     </form>

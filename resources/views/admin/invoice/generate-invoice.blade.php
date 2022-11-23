@@ -84,7 +84,7 @@
         <thead>
             <tr>
                 <th width="50%" colspan="2">
-                    <h2 class="text-start">Funda Ecommerce</h2>
+                    <h2 class="text-start">{{$appSetting->wedsite_name ?? 'wedsite name'}}</h2>
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
                     <span>Invoice Id: #{{$order->id}}</span> <br>

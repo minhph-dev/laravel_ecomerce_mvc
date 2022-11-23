@@ -5,14 +5,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h4>New Arrivals</h4>
+                    <h4>Featured Products</h4>
                     <div class="underline mb-4">
 
                     </div>
                 </div>
 
-                <div class="col-md-3">
-                    @forelse ($featuredProducts as $productItem)
+                @forelse ($featuredProducts as $productItem)
+                    <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-card-img">
                                 <label class="stock bg-danger">New</label>
@@ -39,15 +39,15 @@
                                 </div>
                             </div>
                         </div>
-                    @empty
-                        <div class="p-2 col-md-12">
-                            <h4>No Featured Products Available </h4>
-                        </div>
-                    @endforelse
-
-                    <div>
-                        <a href="{{ url('collections') }}" class="btn btn-warning px-3">View More</a>
                     </div>
+                @empty
+                    <div class="p-2 col-md-12">
+                        <h4>No Featured Products Available </h4>
+                    </div>
+                @endforelse
+
+                <div>
+                    <a href="{{ url('collections') }}" class="btn btn-warning px-3">View More</a>
                 </div>
 
             </div>

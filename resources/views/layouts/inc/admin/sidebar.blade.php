@@ -1,106 +1,85 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('admin/dashboard' ? 'active' : '') }}">
             <a class="nav-link" href="/admin/dashboard">
-                <i class="mdi mdi-home menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
+                <i class="fa-sharp fa-solid fa-gauge"></i>
+                <span class="menu-title ms-3">Dashboard</span>
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{{url('admin/orders')}}">
-                <i class="mdi mdi-home menu-icon"></i>
-                <span class="menu-title">Orders</span>
+        <li class="nav-item {{ Request::is('admin/orders' ? 'active' : '') }}">
+            <a class="nav-link" href="{{ url('admin/orders') }}">
+                <i class="fa-brands fa-jedi-order"></i>
+                <span class="menu-title ms-3">Orders</span>
             </a>
         </li>
-       
-        <li class="nav-item">
-            <a class="nav-link" href="/admin/category">
-                <i class="mdi mdi-view-headline menu-icon"></i>
-                <span class="menu-title">Category</span>
+        <li class="nav-item {{ Request::is('admin/category*' ? 'active' : '') }}">
+            <a class="nav-link" href="{{ url('admin/category') }}">
+                <i class="fa-regular fa-rectangle-list"></i>
+                <span class="menu-title ms-3">Category</span>
             </a>
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item {{ Request::is('admin/brands*' ? 'active' : '') }}">
             <a class="nav-link" href="/admin/brands">
-                <i class="mdi mdi-view-headline menu-icon"></i>
-                <span class="menu-title">Brands</span>
+                <i class="fa-solid fa-file-medical"></i>
+                <span class="menu-title ms-3">Brands</span>
             </a>
         </li>
-         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                aria-controls="ui-basic">
-                <i class="mdi mdi-view-headline menu-icon"></i>
-                <span class="menu-title">Product</span>
+
+        {{-- <li class="nav-item {{ Request::is('admin/products*') ? 'active' : '' }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#products"
+                aria-expanded="{{ Request::is('admin/products*') ? 'true' : 'false' }}" aria-controls="products">
+                <i class="fa-solid fa-table-list"></i>
+                <span class="menu-title ms-3">Products</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse {{ Request::is('admin/products*' ? 'show' : '') }}" id="products">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/admin/products/create">Add Product</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/admin/products">List Product</a>
-                    </li>
+                    <div class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/products/create') ? 'active' : '' }}"
+                            href="/admin/products/create">Add products</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/products') || Request::is('admin/products/*/edit') ? 'active' : '' }}"
+                            href="/admin/products">List products</a>
+                    </div>
                 </ul>
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#sliders" aria-expanded="false"
-                aria-controls="sliders">
-                <i class="mdi mdi-view-headline menu-icon"></i>
-                <span class="menu-title">Slider</span>
-                <i class="menu-arrow"></i>
+        </li> --}}
+
+        <li class="nav-item {{ Request::is('admin/products*' ? 'active' : '') }}">
+            <a class="nav-link" href="/admin/products">
+                <i class="fa-solid fa-table-list"></i>
+                <span class="menu-title ms-3">Products</span>
             </a>
-            <div class="collapse" id="sliders">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/admin/sliders/create">Add Slider</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/admin/sliders">View Slider</a>
-                    </li>
-                </ul>
-            </div>
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item {{ Request::is('admin/colors*' ? 'active' : '') }}">
             <a class="nav-link" href="/admin/colors">
-                <i class="mdi mdi-chart-pie menu-icon"></i>
-                <span class="menu-title">Colors</span>
+                <i class="fa-solid fa-eye-dropper"></i>
+                <span class="menu-title ms-3">Colors</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-                <i class="mdi mdi-chart-pie menu-icon"></i>
-                <span class="menu-title">Charts</span>
+
+        <li class="nav-item {{ Request::is('admin/users*' ? 'active' : '') }}">
+            <a class="nav-link" href="{{ url('admin/users') }}">
+                <i class="fa-regular fa-user"></i>
+                <span class="menu-title ms-3">Users</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">
-                <i class="mdi mdi-grid-large menu-icon"></i>
-                <span class="menu-title">Tables</span>
+
+        <li class="nav-item {{ Request::is('admin/sliders*' ? 'active' : '') }}">
+            <a class="nav-link" href="/admin/sliders">
+                <i class="fa-solid fa-images"></i>
+                <span class="menu-title ms-3">Home Slider</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/icons/mdi.html">
-                <i class="mdi mdi-emoticon menu-icon"></i>
-                <span class="menu-title">Icons</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i class="mdi mdi-account menu-icon"></i>
-                <span class="menu-title">User Pages</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> Login 2 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/register-2.html"> Register 2 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/lock-screen.html"> Lockscreen </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="documentation/documentation.html">
-                <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                <span class="menu-title">Documentation</span>
+
+        <li class="nav-item {{ Request::is('admin/settings' ? 'active' : '') }}">
+            <a class="nav-link" href="{{ url('admin/settings') }}">
+                <i class="fa-solid fa-gear"></i>
+                <span class="menu-title ms-3">Site Setting</span>
             </a>
         </li>
     </ul>

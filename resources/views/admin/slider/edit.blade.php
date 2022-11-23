@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Edit Slider
-                        <a href="{{ url('admin/sliders/') }}" class="btn btn-primary float-end">Back</a>
+                        <a href="{{ url('admin/sliders/') }}" class="btn btn-danger btn-sm text-white float-end">Back</a>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -33,7 +33,7 @@
                             <input type="checkbox" name="status" {{$slider->status == '1' ? 'checked' : ''}} /> Checked = Hidden , Un-checked = Visible
                         </div>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary text-white float-end">Update</button>
                         </div>
                     </form>
 

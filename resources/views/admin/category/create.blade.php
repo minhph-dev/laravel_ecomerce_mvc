@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Add category
-                        <a href="{{ url('admin/category') }}" class="btn btn-primary float-end">Back</a>
+                        <a href="{{ url('admin/category') }}" class="btn btn-primary btn-sm text-white float-end">Back</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -68,7 +68,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-primary float-end">Save</button>
+                                <button type="submit" class="btn btn-primary float-end text-white">Save</button>
                             </div>
                             
                         </div>

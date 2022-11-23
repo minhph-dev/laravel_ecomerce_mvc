@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Brands List
-                        <a href="" class="btn btn-primary float-end" data-bs-toggle="modal"
+                        <a href="" class="btn btn-primary float-end text-white btn-sm" data-bs-toggle="modal"
                             data-bs-target="#addBrandModal">Add Brands</a>
                     </h4>
                 </div>
@@ -38,10 +38,10 @@
                                     <td>
                                         <a href="#" wire:click="editBrand({{ $brand->id }})"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#updateBrandModal"class="btn btn-success">Edit</a>
+                                            data-bs-target="#updateBrandModal"class="btn btn-success btn-sm text-white me-2">Edit</a>
                                         <a href="" wire:click="deleteBrand({{ $brand->id }})"
                                             data-bs-toggle="modal" data-bs-target="#deleteBrandModal"
-                                            class="btn btn-danger">Delete</a>
+                                            class="btn btn-danger btn-sm text-white">Delete</a>
                                     </td>
                                 </tr>
                             @empty

@@ -17,7 +17,7 @@
                                 {!! $sliderItem->description !!}
                             </p>
                             <div>
-                                <a href="#" class="btn btn-slider">
+                                <a href="" class="btn btn-slider">
                                     Get Now
                                 </a>
                             </div>
@@ -40,7 +40,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h4>Welcom to SHOP Ecomerce</h4>
+                    <h4>Welcom to {{$appSetting->wedsite_name ?? 'wedsite name'}}</h4>
                     <div class="underline mx-auto"></div>
                     <p>
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, earum debitis? Deserunt perferendis
@@ -63,7 +63,7 @@
 
                 @if ($trendingProducts)
                     <div class="col-md-12">
-                        <div class="owl-carousel owl-theme four-carousel">
+                        <div class="owl-carousel owl-theme">
                             @foreach ($trendingProducts as $productItem)
                                 <div class="item">
                                     <div class="product-card">
@@ -101,6 +101,7 @@
                         <h4>No Products Available </h4>
                     </div>
                 @endif
+
             </div>
         </div>
     </div>
@@ -119,7 +120,7 @@
 
                 @if ($newArrivalsProducts)
                     <div class="col-md-12">
-                        <div class="owl-carousel owl-theme four-carousel">
+                        <div class="owl-carousel owl-theme">
                             @foreach ($newArrivalsProducts as $productItem)
                                 <div class="item">
                                     <div class="product-card">
@@ -173,7 +174,7 @@
 
                 @if ($featuredProducts)
                     <div class="col-md-12">
-                        <div class="owl-carousel owl-theme four-carousel">
+                        <div class="owl-carousel owl-theme">
                             @foreach ($featuredProducts as $productItem)
                                 <div class="item">
                                     <div class="product-card">
@@ -218,7 +219,7 @@
 
 @section('script')
     <script>
-        $('.four-carousel').owlCarousel({
+        $('.owl-carousel').owlCarousel({
             loop: true,
             margin: 10,
             nav: true,
@@ -230,7 +231,7 @@
                     items: 3
                 },
                 1000: {
-                    items: 5
+                    items: 4
                 }
             }
         })

@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>My orders
-                        <a href="{{ url('admin/orders') }}" class="btn btn-primary float-end">Back</a>
+                        <a href="{{ url('admin/orders') }}" class="btn btn-danger btn-sm text-white float-end">Back</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-md-6">
                                 <br>
-                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <button type="submit" class="btn btn-primary btn-sm text-white">Filter</button>
                             </div>
                         </div>
                     </form>
@@ -57,7 +57,7 @@
                                         <td>{{ $item->payment_mode }}</td>
                                         <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $item->status_message }}</td>
-                                        <td><a href="{{ url('admin/orders/' . $item->id) }}" class="btn btn-primary">View</a></td>
+                                        <td><a href="{{ url('admin/orders/' . $item->id) }}" class="btn btn-success text-white">View</a></td>
                                     </tr>
                                 @empty
                                     <tr>

@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Edit Product
-                        <a href="{{ url('admin/products') }}" class="btn btn-danger float-end">Back</a>
+                        <a href="{{ url('admin/products') }}" class="btn btn-danger btn-sm text-white float-end">Back</a>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -239,7 +239,7 @@
                             </div>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary text-white mt-3 float-end">Update</button>
                         </div>
                     </form>
                 </div>

@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Edit category
-                        <a href="{{ url('admin/category') }}" class="btn btn-primary float-end">Back</a>
+                        <a href="{{ url('admin/category') }}" class="btn btn-danger btn-sm text-white float-end">Back</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -38,7 +38,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="">Image</label>
                                 <input type="file" name="image" class="form-control">
-                                <img src="{{asset('/uploads/category'.$category->image)}}"  width="60px" height="60px"/>
+                                <img src="{{asset($category->image)}}"  width="60px" height="60px"/>
                                 @error('image')
                                     <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -72,7 +72,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-12 mb-3">
-                                <button type="submit" class="btn btn-primary float-end">Update</button>
+                                <button type="submit" class="btn btn-primary text-white float-end">Update</button>
                             </div>
                             
                         </div>

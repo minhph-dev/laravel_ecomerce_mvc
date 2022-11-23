@@ -110,5 +110,6 @@ php artisan make:controller Frontend/UserController
 php artisan make:migration create_user_details_table
 php artisan make:model UserDetail
 
+php artisan make:mail InvoiceOrderMailable
 
 */
