@@ -12,6 +12,7 @@ class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    
     public $name, $slug, $status, $brand_id, $category_id;
     public function rules(){
         return [

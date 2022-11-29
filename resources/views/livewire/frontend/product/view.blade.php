@@ -1,11 +1,11 @@
 <div>
+
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 mt-3">
                     <div class="bg-white border" wire:ignore>
                         @if ($product->productImages)
-                            {{-- <img src="{{ asset($product->productImages[0]->image) }}" class="w-100" alt="Img"> --}}
                             <div class="exzoom" id="exzoom">
 
                                 <div class="exzoom_img_box">
@@ -34,9 +34,13 @@
                             {{ $product->name }}
                         </h4>
                         <hr>
-                        <p class="product-path">
-                            Home / {{ $product->category->name }} /{{ $product->name }}
-                        </p>
+                        <div class="container alight-content-center my-1">
+                            <a href="/" class="me-2 text-decoration-none link-success"><i
+                                    class="fa-solid fa-house me-1"></i> Home</a> / <a
+                                href="{{ url('/collections/' . $product->category->name) }}"
+                                class="mx-2 text-decoration-none link-success">{{ $product->category->name }} </a> /
+                            <span class="ms-2 link-success">{{ $product->name }}</span>
+                        </div>
                         <div>
                             <span class="selling-price">${{ $product->selling_price }}</span>
                             <span class="original-price">${{ $product->original_price }}</span>
@@ -45,7 +49,7 @@
                             @if ($product->productColors->count() > 0)
                                 @if ($product->productColors)
                                     @foreach ($product->productColors as $colorItem)
-                                        <label for="" class="colorSelectionLabel" name="colorSelection"
+                                        <label for="" class="colorSelectionLabel me-2 border-primary me-2 btn btn-primary" name="colorSelection"
                                             wire:click="colorSelected({{ $colorItem->id }})"
                                             style="background-color:{{ $colorItem->color->code }}">
                                             {{ $colorItem->color->name }}
@@ -54,10 +58,15 @@
                                 @endif
 
                                 <div>
-                                    @if ($this->prodColorSelectedQuantity == 'outOfStock')
+                                    {{-- @if ($this->prodColorSelectedQuantity == 'outOfStock')
                                         <label class="btn-sm py-1 mt-2 text-white bg-danger">Out of Stock</label>
                                     @elseif($this->prodColorSelectedQuantity > 0)
                                         <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
+                                    @endif --}}
+                                    @if ($this->prodColorSelectedQuantity > 0)
+                                        <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
+                                    @else
+                                        <label class="btn-sm py-1 mt-2 text-white bg-danger">Out of Stock</label>
                                     @endif
                                 </div>
                             @else
@@ -82,12 +91,6 @@
                                     class="fa fa-shopping-cart"></i> Add To Cart</button>
                             <button type="button" wire:click="addToWishList({{ $product->id }})" class="btn btn1"> <i
                                     class="fa fa-shopping-cart"></i> Add To Wishlist</button>
-                            {{-- <button type="button" wire:click="addToWishList({{ $product->id }})" class="btn btn1">
-                                <span wire:loading.remove>
-                                    <i class="fa fa-heart"></i> Add To Wishlist
-                                </span>
-                                <span wire:loading wire:target="addToWishList">Adding...</span>
-                            </button> --}}
                         </div>
                         <div class="mt-3">
                             <h5 class="mb-0">Small Description</h5>

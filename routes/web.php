@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function(){
 Route::get('thank-you', [FrontendController::class, 'thankyou']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('settings', [SettingController::class, 'index']);

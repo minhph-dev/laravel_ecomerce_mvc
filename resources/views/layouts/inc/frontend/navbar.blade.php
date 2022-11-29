@@ -102,16 +102,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
+                        <a href="/" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/collections') ? 'active' : '' }}" href="{{ url('/collections') }}">All Categories</a>
+                        <a href="/collections" class="nav-link">All Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/new-arrivals') ? 'active' : '' }}" href="{{ url('/new-arrivals') }}">New Arrivals</a>
+                        <a href="/new-arrivals" class="nav-link">New Arrivals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/featured-products') ? 'active' : '' }}" href="{{ url('/featured-products') }}">Featured Products</a>
+                        <a href="/featured-products" class="nav-link">Featured Products</a>
                     </li>
                 </ul>
             </div>

@@ -12,7 +12,6 @@
                     <form action="{{url('admin/category/'.$category->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="">Name</label>
@@ -74,7 +73,6 @@
                             <div class="col-md-12 mb-3">
                                 <button type="submit" class="btn btn-primary text-white float-end">Update</button>
                             </div>
-                            
                         </div>
                     </form>
                 </div>
