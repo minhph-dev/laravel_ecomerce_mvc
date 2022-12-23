@@ -39,7 +39,7 @@
                                             class="btn btn-sm text-white btn-success">Edit</a>
                                         <a href="{{ url('admin/sliders/' . $slider->id . '/delete') }}"
                                             onclick="return confirm('Are you sure you want to delete this Slider');"
-                                            class="btn btn-sm text-white btn-danger mt-3">Delete</a>
+                                            class="btn btn-sm text-white btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

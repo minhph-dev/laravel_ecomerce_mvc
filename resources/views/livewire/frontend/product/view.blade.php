@@ -1,5 +1,4 @@
 <div>
-
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
             <div class="row">
@@ -49,8 +48,9 @@
                             @if ($product->productColors->count() > 0)
                                 @if ($product->productColors)
                                     @foreach ($product->productColors as $colorItem)
-                                        <label for="" class="colorSelectionLabel me-2 border-primary me-2 btn btn-primary" name="colorSelection"
-                                            wire:click="colorSelected({{ $colorItem->id }})"
+                                        <label for=""
+                                            class="colorSelectionLabel me-2 border-primary me-2 btn btn-primary"
+                                            name="colorSelection" wire:click="colorSelected({{ $colorItem->id }})"
                                             style="background-color:{{ $colorItem->color->code }}">
                                             {{ $colorItem->color->name }}
                                         </label>
@@ -58,11 +58,6 @@
                                 @endif
 
                                 <div>
-                                    {{-- @if ($this->prodColorSelectedQuantity == 'outOfStock')
-                                        <label class="btn-sm py-1 mt-2 text-white bg-danger">Out of Stock</label>
-                                    @elseif($this->prodColorSelectedQuantity > 0)
-                                        <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
-                                    @endif --}}
                                     @if ($this->prodColorSelectedQuantity > 0)
                                         <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
                                     @else
@@ -113,6 +108,60 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <h3 class="text-3xl">Đánh giá</h3>
+        <div class="rounded border shadow">
+            @foreach ($product->comments as $comment)
+                <div class="row p-2">
+                    <div style="width:5%">
+                        <div class="rounded-circle border shadow p-2 d-flex align-items-center justify-content-center"
+                            style="width:35px;height:35px">U</div>
+                    </div>
+                    <div style="width:95%">
+                        <div class="d-flex align-items-center">
+                            <div class="font-bold text-lg me-2 fw-bold">{{ $comment->user->name }}</div>
+                            <div class="text-xs text-gray-500 font-semibold" style="font-size: 12px">
+                                {{ $comment->created_at->diffForHumans() }}</div>
+                        </div>
+                        <p class="text-gray-800">{{ $comment->comment }}</p>
+                        @if ($comment->image)
+                            <img src="{{ asset('uploads/' . "$comment->image") }}" width="100px" />
+                        @endif
+                    </div>
+                </div>
+                <hr class="mx-2">
+            @endforeach
+        </div>
+        @error('newComment')
+            <span class="text-red-500 text-xs">{{ $message }}</span>
+        @enderror
+        <div>
+            @if (session()->has('message'))
+                <div class="p-3 bg-green-300 text-green-800 rounded shadow-sm">
+                    {{ session('message') }}
+                </div>
+            @endif
+        </div>
+
+        <form wire:submit.prevent="addComment({{ $product->id }})" class="d-flex flex-column mt-3 rounded border p-2">
+            @if ($photo)
+                <img src="{{ $photo->temporaryUrl() }}" width="50px">
+            @endif
+            <input type="file" wire:model="photo">
+            @error('photo')
+                <span class="error">{{ $message }}</span>
+            @enderror
+            <textarea rows="4" wire:model.debounce.500ms="comment" class="rounded border shadow" style="outline: none"></textarea>
+            <div class="py-2">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
             <div class="row">
@@ -216,7 +265,6 @@
 @push('scripts')
     <script>
         $(function() {
-
             $("#exzoom").exzoom({
                 "navWidth": 60,
                 "navHeight": 60,

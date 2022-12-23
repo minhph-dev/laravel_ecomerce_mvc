@@ -46,7 +46,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5">No Brand Found</td>
+                                    <td colspan="6">No Brand Found</td>
                                 </tr>
                             @endforelse
                         </tbody>

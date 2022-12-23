@@ -3,13 +3,58 @@
 namespace App\Http\Livewire\Frontend\Product;
 
 use App\Models\Cart;
+use App\Models\Comment;
+use Livewire\Component;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
+use Intervention\Image\ImageManager;
+use Livewire\WithFileUploads;
 
 class View extends Component
 {
-    public $category, $product, $prodColorSelectedQuantity, $quantityCount = 1, $productColorId;
+    public $category, $product, $prodColorSelectedQuantity, $quantityCount = 1, $productColorId, $comment, $photo;
+    use WithFileUploads;
+
+    public function addComment(int $productId)
+    {
+        if (Auth::check()) {
+            $this->validate([
+                'comment' => 'required',
+                'photo' => 'max:1024', 
+            ]);
+            $newComment = Comment::create([
+                'comment' =>$this->comment,
+                'image' =>$this->storeImage(),
+                'product_id' => $productId,
+                'user_id' => auth()->user()->id
+            ]);
+            $this->product->comments->push($newComment);
+            session()->flash('message','Comment Added Successfully');
+            $this->photo = '';
+            $this->comment = '';
+        }else {
+            session()->flash('message', 'Please login to continue');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Please Login to continue',
+                'type' => 'info',
+                'status' => 401
+            ]);
+            return false;
+        }
+    }
+
+    public function storeImage()
+    {
+        if (!$this->photo) {
+            return null;
+        }
+        dd($this->photo);
+        $imageName = $this->photo->hashName();
+        $manager = new ImageManager();
+        $image = $manager->make($this->photo)->resize(300,200);
+        $image ->save('uploads/'.$imageName);
+        return $imageName;
+    }
 
     public function addToWishList($productId)
     {
@@ -187,7 +232,7 @@ class View extends Component
     {
         return view('livewire.frontend.product.view', [
             'category' => $this->category,
-            'product' => $this->product
+            'product' => $this->product,
         ]);
     }
 }
