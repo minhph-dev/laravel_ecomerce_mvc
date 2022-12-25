@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('brand')->nullable();
-            $table->longText('small_description')->nullable();
             $table->longText('description')->nullable();
 
             $table->integer('original_price');

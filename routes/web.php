@@ -16,6 +16,7 @@ use App\Http\Controllers\Frontend\UserController as FrontendUserController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Admin\Brand\Index;
+use App\Http\Livewire\Admin\ProductComponent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -76,18 +77,19 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
     });
 
     Route::get('/brands', Index::class);
+    Route::get('/products', ProductComponent::class);
 
-    Route::controller(ProductController::class)->group(function(){
-        Route::get('/products', 'index');
-        Route::get('/products/create', 'create');
-        Route::post('/products', 'store');
-        Route::get('/products/{product}/edit', 'edit');
-        Route::put('/products/{product}', 'update');
-        Route::get('/products/{product_id}/delete', 'destroy');
-        Route::get('product-image/{product_image_id}/delete', 'destroyImage');
-        Route::post('/product-color/{prod_color_id}','updateProdColorQty');
-        Route::get('/product-color/{prod_color_id}/delete','deleteProdColor');
-    });
+    // Route::controller(ProductController::class)->group(function(){
+    //     Route::get('/products', 'index');
+    //     Route::get('/products/create', 'create');
+    //     Route::post('/products', 'store');
+    //     Route::get('/products/{product}/edit', 'edit');
+    //     Route::put('/products/{product}', 'update');
+    //     Route::get('/products/{product_id}/delete', 'destroy');
+    //     Route::get('product-image/{product_image_id}/delete', 'destroyImage');
+    //     Route::post('/product-color/{prod_color_id}','updateProdColorQty');
+    //     Route::get('/product-color/{prod_color_id}/delete','deleteProdColor');
+    // });
 
     Route::controller(ColorController::class)->group(function(){
         Route::get('/colors', 'index');

@@ -29,6 +29,17 @@
         .sidebar.nav.nav-item.active{
             background-color: #e9e9e9;
         }
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: #888;
+        }
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
     </style>
     @livewireStyles
 </head>

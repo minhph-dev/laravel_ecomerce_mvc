@@ -48,7 +48,7 @@ class View extends Component
         if (!$this->photo) {
             return null;
         }
-        dd($this->photo);
+        // dd($this->photo);
         $imageName = $this->photo->hashName();
         $manager = new ImageManager();
         $image = $manager->make($this->photo)->resize(300,200);
