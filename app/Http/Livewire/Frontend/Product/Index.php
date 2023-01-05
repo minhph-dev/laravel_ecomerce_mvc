@@ -2,17 +2,142 @@
 
 namespace App\Http\Livewire\Frontend\Product;
 
+use App\Models\Cart;
 use App\Models\Product;
+use App\Models\ProductColor;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $products, $category, $brandInputs = [], $priceInput;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    public $products, $category, $brandInputs = [], $priceInput, $showLimit, $sortBy;
 
     protected $queryString = [
         'brandInputs' => ['except' => '', 'as' => 'brand'],
         'priceInput' => ['except' => '', 'as' => 'price'],
     ];
+
+    public function addToWishList($productId)
+    {
+        if (Auth::check()) {
+            if (Wishlist::where('user_id', auth()->user()->id)->where('product_id', $productId)->exists()) {
+                session()->flash('message', 'Already added to wishlist');
+                $this->dispatchBrowserEvent('message', [
+                    'text' => 'Already added to wishlist',
+                    'type' => 'warning',
+                    'status' => 409
+                ]);
+                return false;
+            } else {
+                Wishlist::create([
+                    'user_id' => auth()->user()->id,
+                    'product_id' => $productId
+                ]);
+                $this->emit('wishlistAddedUpdated');
+                session()->flash('message', 'Wishlist added successfully');
+                $this->dispatchBrowserEvent('message', [
+                    'text' => 'Wishlist added successfully',
+                    'type' => 'success',
+                    'status' => 200
+                ]);
+            }
+        } else {
+            session()->flash('message', 'Please login to continue');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Please Login to continue',
+                'type' => 'info',
+                'status' => 401
+            ]);
+            return false;
+        }
+    }
+
+    public function addToCart(int $productId)
+    {
+        $product = Product::findOrFail($productId)->toArray();
+        $productColors = json_decode(ProductColor::where('id', $productId)->get(), true);
+        if (Auth::check()) {
+            if ($product) {
+                if ($productColors) {
+                    if (Cart::where('user_id', auth()->user()->id)
+                        ->where('product_id', $productId)
+                        ->exists()
+                    ) {
+                        $this->dispatchBrowserEvent('message', [
+                            'text' => 'Product Already Added',
+                            'type' => 'info',
+                            'status' => 200
+                        ]);
+                    } else {
+                        if ($productColors['0']['quantity'] > 0) {
+                            Cart::create([
+                                'user_id' => auth()->user()->id,
+                                'product_id' => $productId,
+                                'product_color_id' => $this->productColorId,
+                                'quantity' => 1
+                            ]);
+                            $this->emit('CartAddedUpdated');
+                            $this->dispatchBrowserEvent('message', [
+                                'text' => 'Product Added to Cart',
+                                'type' => 'success',
+                                'status' => 200
+                            ]);
+                        } else {
+                            $this->dispatchBrowserEvent('message', [
+                                'text' => 'Out of Stock',
+                                'type' => 'warning',
+                                'status' => 404
+                            ]);
+                        }
+                    }
+                } else {
+                    if (Cart::where('user_id', auth()->user()->id)->where('product_id', $productId)->exists()) {
+                        $this->dispatchBrowserEvent('message', [
+                            'text' => 'Product Already Added',
+                            'type' => 'warning',
+                            'status' => 200
+                        ]);
+                    } else {
+                        if ($product['quantity'] > 0) {
+                            Cart::create([
+                                'user_id' => auth()->user()->id,
+                                'product_id' => $productId,
+                                'quantity' => 1
+                            ]);
+                            $this->emit('CartAddedUpdated');
+                            $this->dispatchBrowserEvent('message', [
+                                'text' => 'Product Added to Cart',
+                                'type' => 'success',
+                                'status' => 200
+                            ]);
+                        } else {
+                            $this->dispatchBrowserEvent('message', [
+                                'text' => 'Out of stock',
+                                'type' => 'warning',
+                                'status' => 404
+                            ]);
+                        }
+                    }
+                }
+            } else {
+                $this->dispatchBrowserEvent('message', [
+                    'text' => 'Product does not exist',
+                    'type' => 'warning',
+                    'status' => 404
+                ]);
+            }
+        } else {
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Please Login to add to cart',
+                'type' => 'info',
+                'status' => 401
+            ]);
+        }
+    }
 
     public function mount($category)
     {
@@ -26,11 +151,20 @@ class Index extends Component
                 $q->whereIn('brand', $this->brandInputs);
             })
             ->when($this->priceInput, function ($q) {
-                $q->when($this->priceInput == 'hight-to-low', function ($q2) {
-                    $q2->orderBy('selling_price', 'DESC');
+                $q->when($this->priceInput == '20-50', function ($q2) {
+                    $q2->whereBetween('selling_price', [20, 50]);
+                })
+                    ->when($this->priceInput == '50-100', function ($q3) {
+                        $q3->whereBetween('selling_price', [50, 100]);
                     })
-                    ->when($this->priceInput == 'low-to-hight', function ($q2) {
-                        $q2->orderBy('selling_price', 'ASC');
+                    ->when($this->priceInput == '100-250', function ($q4) {
+                        $q4->whereBetween('selling_price', [100, 250]);
+                    })
+                    ->when($this->priceInput == 'low-to-hight', function ($q5) {
+                        $q5->orderBy('selling_price', 'ASC');
+                    })
+                    ->when($this->priceInput == 'hight-to-low', function ($q6) {
+                        $q6->orderBy('selling_price', 'DESC');
                     });
             })
             ->where('status', '0')->get();

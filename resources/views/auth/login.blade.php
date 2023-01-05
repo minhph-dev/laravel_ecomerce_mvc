@@ -64,6 +64,17 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
+                                 <div class="form-check">
+                                      <a href="{{ url('login-google') }}">
+                                         <span><i class="fa-brands fa-google"></i></span>
+                                         Login with Google
+                                      </a>
+                                  </div>
+                            </div>
+                       </div>
                     </form>
                 </div>
             </div>

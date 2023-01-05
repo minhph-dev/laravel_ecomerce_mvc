@@ -2,71 +2,99 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\Slider;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {
-    public function index(){
-        $sliders = Slider::where('status', '0')->get();
-        $trendingProducts = Product::where('trending', '1')->latest()->take(15)->get();
-        $newArrivalsProducts = Product::latest()->take(14)->get();
-        $featuredProducts = Product::where('featured', '1')->latest()->take(14)->get();
-        return view('frontend.index', compact('sliders', 'trendingProducts', 'newArrivalsProducts', 'featuredProducts'));
+    public function index()
+    {
+        return view('frontend.index');
     }
 
-    public function searchProducts(Request $request){
-        if($request->search){
-            $searchProducts = Product::where('name', 'LIKE', '%'.$request->search.'%')->latest()->paginate(15);
-            return view('frontend.pages.search', compact('searchProducts'));
+    public function newArrivals()
+    {
+        return view('frontend.pages.new-arrival');
+    }
 
-        }else{
+    public function featuredProducts()
+    {
+        return view('frontend.pages.featured-products');
+    }
+
+    public function searchProducts(Request $request)
+    {
+        if ($request->search) {
+            $searchProducts = Product::where('name', 'LIKE', '%' . $request->search . '%')->latest()->paginate(15);
+            return view('frontend.pages.search', compact('searchProducts'));
+        } else {
             return redirect()->back()->with('Empty Search');
         }
-
     }
 
-    public function newArrivals(){
-        $newArrivalsProducts = Product::latest()->take(16)->get();
-        return view('frontend.pages.new-arrival', compact('newArrivalsProducts'));
-    }
-
-    public function featuredProducts(){
-        $featuredProducts = Product::where('featured', '1')->latest()->get();
-        return view('frontend.pages.featured-products', compact('featuredProducts'));
-    }
-
-    public function categories(){
+    public function categories()
+    {
         $categories = Category::where('status', '0')->get();
         return view('frontend.collections.category.index', compact('categories'));
     }
 
-    public function products($category_slug){
+    public function products($category_slug)
+    {
         $category = Category::where('slug', $category_slug)->first();
-        if($category){
+        if ($category) {
             return view('frontend.collections.products.index', compact('category'));
-        }else{
+        } else {
             return redirect()->back();
         }
     }
 
-    public function productView(string $category_slug, string $product_slug){
+    public function productView(string $category_slug, string $product_slug)
+    {
         $category = Category::where('slug', $category_slug)->first();
-        if($category){
+        if ($category) {
             $product = $category->products()->where('slug', $product_slug)->where('status', '0')->first();
-            if($product){
-                return view('frontend.collections.products.view', compact('product','category'));
-            }else{
+            if ($product) {
+                return view('frontend.collections.products.view', compact('product', 'category'));
+            } else {
                 return redirect()->back();
             }
-        }else{
+        } else {
             return redirect()->back();
         }
     }
-    public function thankyou(){
-        return view('frontend.thank-you');
+    public function productViewApi(string $category_slug, string $product_slug)
+    {
+        $category = Category::where('slug', $category_slug)->first();
+        $product = $category->products()->where('slug', $product_slug)->where('status', '0')->first();
+        $productColors = $product->productColors()->get();
+       
+        $productImages = $product->productImages()->get();
+        if ($product) {
+            return response()->json([
+                'status' => 200,
+                'data' => [
+                    'product' => $product,
+                    'productColors' => $productColors,
+                    'productImages' => $productImages
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Product Found'
+            ]);
+        }
+    }
+
+    public function contact()
+    {
+        return view('frontend.pages.contact-us');
+    }
+
+    public function thankyou()
+    {
+        return view('frontend.pages.thank-you');
     }
 }

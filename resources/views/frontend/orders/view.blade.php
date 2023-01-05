@@ -6,39 +6,43 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="shadow bg-white p-3">
-                        <h4 class="text-primary">
-                            <i class="fa fa-shopping-cart text-dark"></i>My Orders Detail
-                            <a href="{{url('orders')}}" class="btn btn-danger btn-sm float-end">Back</a>
-                        </h4>
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>Order Details</h5>
-                                <hr>
-                                <h6>order Id: {{ $order->id }}</h6>
-                                <h6>Tracking Id/no: {{ $order->tracking_no }} </h6>
-                                <h6>order Created Date: {{ $order->created_at->format('d-m-Y h:i A') }}</h6>
-                                <h6>Payment Mode: {{ $order->payment_mode }}</h6>
-                                <h6 class="border p-2 text-success">
-                                    Order Status Message : <span class="text-uppercase">{{ $order->status_message }}</span>
-                                </h6>
-                            </div>
-                            <div class="col-md-6">
-                                <h5>User Details</h5>
-                                <hr>
-                                <h6>Full Name: {{ $order->fullname }}</h6>
-                                <h6>Email Id: {{ $order->email }}</h6>
-                                <h6>Phone: {{ $order->phone }}</h6>
-                                <h6>Address: {{ $order->address }}</h6>
-                                <h6>Pin code: {{ $order->pincode }}</h6>
+                        <div class="container">
+                            <h4>My Orders Details
+                                <a href="{{ url('orders') }}" class="btn btn-warning float-right text-white">Back</a>
+                            </h4>
+                            <div class="underline mb-4" style="background: #F7941D">
                             </div>
                         </div>
 
-                        <br>
-                        <h5>Order Items</h5>
-                        <hr>
-                        <div class="table-responsive">
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <h5 style="font-weight: 500">Order Details</h5>
+                                <hr>
+                                <p><strong style="margin-right: 5px">Order Id:</strong> {{ $order->id }}</p>
+                                <p><strong style="margin-right: 5px">Tracking Id/no:</strong> {{ $order->tracking_no }} </p>
+                                <p><strong style="margin-right: 5px">Order Created Date:</strong>
+                                    {{ $order->created_at->format('d-m-Y h:i A') }}</p>
+                                <p><strong style="margin-right: 5px">Payment Mode: </strong>{{ $order->payment_mode }}</p>
+                                <p class="border p-2 text-success mt-2">
+                                    <strong style="margin-right: 5px">Order Status Message : </strong><span
+                                        class="text-uppercase">{{ $order->status_message }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 style="font-weight: 500">User Details</h5>
+                                <hr>
+                                <p><strong style="margin-right: 5px">Full Name: </strong>{{ $order->fullname }}</p>
+                                <p><strong style="margin-right: 5px">Email Id: </strong>{{ $order->email }}</p>
+                                <p><strong style="margin-right: 5px">Phone: </strong>{{ $order->phone }}</p>
+                                <p><strong style="margin-right: 5px">Address: </strong>{{ $order->address }}</p>
+                                <p><strong style="margin-right: 5px">Pin code: </strong>{{ $order->pincode }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <h5 class="mt-4" style="font-weight: 500">Order Items</h5>
+                            <div class="underline mb-3" style="background: #F7941D"></div>
+                        </div>
+                        <div class="table-responsive col-md-12">
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <th>Item ID</th>
@@ -74,7 +78,8 @@
                                             </td>
                                             <td width="10%">${{ $orderItem->price }}</td>
                                             <td width="10%">{{ $orderItem->quantity }}</td>
-                                            <td width="10%" class="fw-bold">{{ $orderItem->quantity * $orderItem->price }}
+                                            <td width="10%" class="fw-bold">
+                                                {{ $orderItem->quantity * $orderItem->price }}
                                             </td>
                                             @php
                                                 $totalPrice += $orderItem->quantity * $orderItem->price;
@@ -82,8 +87,8 @@
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td colspan="5" class="fw-bold">Total Amount: </td>
-                                        <td colspan="1" class="fw-bold">${{ $totalPrice }}</td>
+                                        <td colspan="5"><strong>Total Amount: </strong></td>
+                                        <td colspan="1"><strong>${{ $totalPrice }}</strong></td>
                                     </tr>
                                 </tbody>
                             </table>

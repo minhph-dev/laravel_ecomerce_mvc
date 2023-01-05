@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Frontend\Checkout;
 
+use App\Mail\PlaceOrderMailable;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Orderitem;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
@@ -28,7 +30,11 @@ class CheckoutShow extends Component
         if($codOrder){
 
             Cart::where('user_id', auth()->user()->id)->delete();
-
+            try {
+                $order = Order::findOrFail($codOrder->id);
+                Mail::to("$order->email")->send(new PlaceOrderMailable($order));
+            } catch (\Exception $e) {
+            }
             session()->flash('message', 'Order Placed Successfully');
             $this->dispatchBrowserEvent('message', [
                 'text' =>'Order Placed Successfully',
@@ -36,6 +42,7 @@ class CheckoutShow extends Component
                 'status' =>200
             ]);
             return redirect()->to('thank-you');
+
         }else{
             $this->dispatchBrowserEvent('message', [
                 'text' =>'Something Went Wrong',
@@ -54,7 +61,7 @@ class CheckoutShow extends Component
             'fullname' =>'required|string|max:121',
             'email' =>'required|email|max:121',
             'phone' =>'required|string|max:11|min:10',
-            'pincode' =>'required|string|max:6|min:6',
+            'pincode' =>'required|string|digits:6',
             'address' =>'required|string|max:500',
         ];
     }
@@ -96,9 +103,12 @@ class CheckoutShow extends Component
         $this->payment_mode = 'Cash on Delivery';
         $codOrder = $this->placeOrder();
         if($codOrder){
-
             Cart::where('user_id', auth()->user()->id)->delete();
-
+            try {
+                $order = Order::findOrFail($codOrder->id);
+                Mail::to("$order->email")->send(new PlaceOrderMailable($order));
+            } catch (\Exception $e) {
+            }
             session()->flash('message', 'Order Placed Successfully');
             $this->dispatchBrowserEvent('message', [
                 'text' =>'Order Placed Successfully',
@@ -127,6 +137,17 @@ class CheckoutShow extends Component
 
     public function render()
     {
+        $phone = $this->phone;
+        $pincode = $this->pincode;
+        $address = $this->address;
+
+        $this->fullname = auth()->user()->name;
+        $this->email = auth()->user()->email;
+        
+        $this->phone = auth()->user()->userDetail->phone ?? $phone ?? '';
+        $this->pincode = auth()->user()->userDetail->pin_code ?? $pincode ?? '';
+        $this->address = auth()->user()->userDetail->address ?? $address ?? '';
+
         $this->totalProductAmount = $this->totalProductAmount();
         return view('livewire.frontend.checkout.checkout-show',[
             'totalProductAmount' => $this->totalProductAmount

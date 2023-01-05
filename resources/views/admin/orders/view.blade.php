@@ -15,7 +15,7 @@
                         <a href="{{ url('admin/orders') }}" class="btn btn-danger btn-sm float-end mx-1 text-white">Back</a>
                         <a href="{{ url('admin/invoice/'.$order->id.'/generate') }}" class="btn btn-primary btn-sm float-end mx-1 text-white">Dowload Invoice</a>
                         <a href="{{ url('admin/invoice/'.$order->id) }}" target="_blank" class="btn btn-warning btn-sm float-end mx-1 text-white">View Invoice</a>
-                        <a href="{{ url('admin/invoice/'.$order->id.'/mail') }}" target="_blank" class="btn btn-info btn-sm float-end mx-1">Send Invoice Via Mail</a>
+                        <a href="{{ url('admin/invoice/'.$order->id.'/mail') }}"  class="btn btn-info btn-sm float-end mx-1">Send Invoice Via Mail</a>
                     </h4>
                 </div>
                 <div class="card-body">

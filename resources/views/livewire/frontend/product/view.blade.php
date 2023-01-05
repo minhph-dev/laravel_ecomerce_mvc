@@ -1,280 +1,293 @@
 <div>
+    {{-- Start Product Detail --}}
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
             <div class="row">
-                <div class="col-md-5 mt-3">
-                    <div class="bg-white border" wire:ignore>
+                <div class="col-md-6 mt-3 p-3 shadow" wire:ignore>
+                    <div class="container px-0 position-relative">
                         @if ($product->productImages)
-                            <div class="exzoom" id="exzoom">
-
-                                <div class="exzoom_img_box">
-                                    <ul class='exzoom_img_ul'>
-                                        @foreach ($product->productImages as $itemImg)
-                                            <li><img src="{{ asset($itemImg->image) }}" /></li>
-                                        @endforeach
-                                    </ul>
+                            @foreach ($product->productImages as $itemImg)
+                                <div class="mySlides">
+                                    <img src="{{ asset($itemImg->image) }}" style="width:100%;height:300px">
                                 </div>
-
-                                <div class="exzoom_nav"></div>
-                                <p class="exzoom_btn">
-                                    <a href="javascript:void(0);" class="exzoom_prev_btn">
-                                        < </a>
-                                            <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
-                                </p>
-                            </div>
+                            @endforeach
                         @else
                             No Image Added
                         @endif
+                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                        <a class="next" onclick="plusSlides(1)">❯</a>
+                    </div>
+                    <div class="underline mb-3"></div>
+                    <div class="container d-flex px-0">
+                        @if ($product->productImages)
+                            @foreach ($product->productImages as $itemImg)
+                                <div class="col-md-3 px-0">
+                                    <img class="demo cursor" src="{{ asset($itemImg->image) }}" style="width:100%"
+                                        onclick="currentSlide({{ $loop->index + 1 }})" alt="The Woods">
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
-                <div class="col-md-7 mt-3">
+                <div class="col-md-6 mt-3">
                     <div class="product-view">
-                        <h4 class="product-name">
+                        <h4 style="font-weight: 600">
                             {{ $product->name }}
                         </h4>
-                        <hr>
-                        <div class="container alight-content-center my-1">
-                            <a href="/" class="me-2 text-decoration-none link-success"><i
-                                    class="fa-solid fa-house me-1"></i> Home</a> / <a
-                                href="{{ url('/collections/' . $product->category->name) }}"
-                                class="mx-2 text-decoration-none link-success">{{ $product->category->name }} </a> /
-                            <span class="ms-2 link-success">{{ $product->name }}</span>
+                        <div class="d-flex my-3">
+                            <h5 style="font-weight: 600">${{ $product->selling_price }}</h5>
+                            <span class="original-price mx-2">${{ $product->original_price }}</span>
                         </div>
-                        <div>
-                            <span class="selling-price">${{ $product->selling_price }}</span>
-                            <span class="original-price">${{ $product->original_price }}</span>
-                        </div>
-                        <div>
+                        <p>{!! $product->description !!}</p>
+                        <div class="my-3">
                             @if ($product->productColors->count() > 0)
-                                @if ($product->productColors)
-                                    @foreach ($product->productColors as $colorItem)
-                                        <label for=""
-                                            class="colorSelectionLabel me-2 border-primary me-2 btn btn-primary"
-                                            name="colorSelection" wire:click="colorSelected({{ $colorItem->id }})"
-                                            style="background-color:{{ $colorItem->color->code }}">
-                                            {{ $colorItem->color->name }}
-                                        </label>
-                                    @endforeach
-                                @endif
-
+                                <div class="d-flex">
+                                    <h5 style="font-weight: 500">Colors: </h5>
+                                    @if ($product->productColors)
+                                        @foreach ($product->productColors as $colorItem)
+                                            <div class="colorSelectionLabel mx-2 d-flex justify-content-center align-items-center" 
+                                                name="colorSelection" wire:click="colorSelected({{ $colorItem->id }})"
+                                                onclick="this.style.border = '3px solid #F7941D' "
+                                                style="width:30px;height:30px;cursor:pointer;border-radius:50%;background-color:{{ $colorItem->color->code }}">
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
                                 <div>
-                                    @if ($this->prodColorSelectedQuantity > 0)
-                                        <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
-                                    @else
-                                        <label class="btn-sm py-1 mt-2 text-white bg-danger">Out of Stock</label>
+                                    @if ($this->prodColorSelectedQuantity == 'outOfStock')
+                                        <label class="btn-sm py-1 mt-2 text-white bg-danger"> <i
+                                                class="fa-regular fa-face-surprise" style="margin-right:5px"></i></i>Out
+                                            of Stock</label>
+                                    @elseif($this->prodColorSelectedQuantity > 0)
+                                        <label class="btn-sm py-1 mt-2 text-white bg-success"><i
+                                                class="fa-regular fa-circle-check" style="margin-right:5px"></i>In
+                                            Stock</label>
                                     @endif
                                 </div>
                             @else
                                 @if ($product->quantity)
-                                    <label class="btn-sm py-1 mt-2 text-white bg-success">In Stock</label>
+                                    <label class="btn-sm py-1 mt-2 text-white bg-success"><i
+                                            class="fa-regular fa-circle-check" style="margin-right:5px"></i>In
+                                        Stock</label>
                                 @else
-                                    <label class="btn-sm py-1 mt-2 text-white bg-danger">Out of Stock</label>
+                                    <label class="btn-sm py-1 mt-2 text-white bg-danger"> <i
+                                            class="fa-regular fa-face-surprise" style="margin-right:5px"></i></i>Out
+                                        of Stock</label>
                                 @endif
 
                             @endif
                         </div>
-                        <div class="mt-2">
-                            <div class="input-group">
-                                <span class="btn btn1" wire:click="decrementQuantity"><i class="fa fa-minus"></i></span>
+                        <div class="mt-2 d-flex">
+                            <div class="border shadow col-md-3 d-flex align-items-center justify-content-between">
+                                <span wire:click="decrementQuantity"><i class="fa fa-minus"></i></span>
                                 <input type="text" wire:model="quantityCount" value="{{ $this->quantityCount }}"
-                                    readonly class="input-quantity" />
-                                <span class="btn btn1" wire:click="incrementQuantity"><i class="fa fa-plus"></i></span>
+                                    readonly class="input-quantity" style="border: none;" />
+                                <span wire:click="incrementQuantity"><i class="fa fa-plus"></i></span>
                             </div>
-                        </div>
-                        <div class="mt-2">
-                            <button type="button" wire:click="addToCart({{ $product->id }})" class="btn btn1"> <i
-                                    class="fa fa-shopping-cart"></i> Add To Cart</button>
-                            <button type="button" wire:click="addToWishList({{ $product->id }})" class="btn btn1"> <i
-                                    class="fa fa-shopping-cart"></i> Add To Wishlist</button>
-                        </div>
-                        <div class="mt-3">
-                            <h5 class="mb-0">Small Description</h5>
-                            <p> {!! $product->small_description !!}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 mt-3">
-                    <div class="card">
-                        <div class="card-header bg-white">
-                            <h4>Description</h4>
-                        </div>
-                        <div class="card-body">
-                            <p>{!! $product->description !!}</p>
+                            <button type="button" wire:click="addToCart({{ $product->id }})" class="btn btn1 mx-2">
+                                Add To
+                                Cart</button>
+                            <button type="button" wire:click="addToWishList({{ $product->id }})" class="btn btn1"><i
+                                    class="fa-regular fa-heart"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {{-- End Product Detail --}}
 
+    {{-- Start Comment --}}
     <div class="container">
-        <h3 class="text-3xl">Đánh giá</h3>
-        <div class="rounded border shadow">
-            @foreach ($product->comments as $comment)
-                <div class="row p-2">
-                    <div style="width:5%">
-                        <div class="rounded-circle border shadow p-2 d-flex align-items-center justify-content-center"
-                            style="width:35px;height:35px">U</div>
-                    </div>
-                    <div style="width:95%">
-                        <div class="d-flex align-items-center">
-                            <div class="font-bold text-lg me-2 fw-bold">{{ $comment->user->name }}</div>
-                            <div class="text-xs text-gray-500 font-semibold" style="font-size: 12px">
-                                {{ $comment->created_at->diffForHumans() }}</div>
-                        </div>
-                        <p class="text-gray-800">{{ $comment->comment }}</p>
-                        @if ($comment->image)
-                            <img src="{{ asset('uploads/' . "$comment->image") }}" width="100px" />
-                        @endif
-                    </div>
+        <h5 class="my-3" style="font-weight: 600;border-left:3px solid #F7941D; padding-left:3px">Comments</h5>
+        @forelse ($product->comments as $comment)
+            <div class="row p-4">
+                <div style="width:5%">
+                    <div class="rounded-circle border shadow p-2 d-flex align-items-center justify-content-center"
+                        style="width:35px;height:35px"><i class="fa-regular fa-user"></i></div>
                 </div>
-                <hr class="mx-2">
-            @endforeach
-        </div>
+                <div style="width:95%">
+                    <div class="d-flex align-items-center">
+                        <div class="font-bold text-lg">{{ $comment->user->name }}</div>
+                        <div class="text-xs text-gray-500 mx-2 font-semibold" style="font-size: 12px">
+                            {{ $comment->created_at->diffForHumans() }}</div>
+                    </div>
+                    <p class="text-gray-800">{{ $comment->comment }}</p>
+                    @if ($comment->image)
+                        <img src="{{ asset('uploads/' . "$comment->image") }}" width="100px" />
+                    @endif
+                </div>
+            </div>
+        @empty
+            <p>There are no reviews yet !!</p>
+        @endforelse
         @error('newComment')
             <span class="text-red-500 text-xs">{{ $message }}</span>
         @enderror
-        <div>
+        {{-- <div>
             @if (session()->has('message'))
                 <div class="p-3 bg-green-300 text-green-800 rounded shadow-sm">
                     {{ session('message') }}
                 </div>
             @endif
-        </div>
+        </div> --}}
 
-        <form wire:submit.prevent="addComment({{ $product->id }})" class="d-flex flex-column mt-3 rounded border p-2">
-            @if ($photo)
-                <img src="{{ $photo->temporaryUrl() }}" width="50px">
-            @endif
-            <input type="file" wire:model="photo">
-            @error('photo')
-                <span class="error">{{ $message }}</span>
-            @enderror
-            <textarea rows="4" wire:model.debounce.500ms="comment" class="rounded border shadow" style="outline: none"></textarea>
+        <h5 class="my-3" style="font-weight: 600;border-left:3px solid #F7941D; padding-left:3px">Leave A Comment
+        </h5>
+        <form wire:submit.prevent="addComment({{ $product->id }})" class="d-flex flex-column my-3 rounded border p-4">
+            <div class="form-group">
+                @if ($photo)
+                    <img src="{{ $photo->temporaryUrl() }}" width="50px">
+                @endif
+                <input type="file" wire:model="photo">
+                @error('photo')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <textarea rows="4" wire:model.debounce.500ms="comment" class="rounded border shadow" style="outline: none"></textarea>
+            </div>
             <div class="py-2">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
             </div>
         </form>
     </div>
+    {{-- End Comment --}}
 
-
-
-
-    <div class="py-3 py-md-5 bg-light">
+    <!-- Start Relative Product -->
+    <section class="shop-home-list section">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mb-3">
-                    <h3>Related
-                        @if ($category)
-                            {{ $category->name }}
-                        @endif
-                        Products
-                    </h3>
-                    <div class="underline"></div>
-                </div>
-                @forelse ($category->relatedProducts as $relatedProductItem)
-                    <div class="col-md-3 mb-3">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                @if ($relatedProductItem->productImages->count() > 0)
-                                    <a
-                                        href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">
-
-                                        <img src="{{ asset($relatedProductItem->productImages[0]->image) }}"
-                                            alt="{{ $relatedProductItem->name }}">
-                                    </a>
-                                @endif
-                            </div>
-                            <div class="product-card-body">
-                                <p class="product-brand">{{ $relatedProductItem->brand }}</p>
-                                <h5 class="product-name">
-                                    <a
-                                        href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">
-                                        {{ $relatedProductItem->name }}
-                                    </a>
-                                </h5>
-                                <div>
-                                    <span class="selling-price">${{ $relatedProductItem->selling_price }}</span>
-                                    <span class="original-price">${{ $relatedProductItem->original_price }}</span>
-                                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="shop-section-title">
+                                <h1>Related
+                                    @if ($category)
+                                        {{ $category->name }}
+                                    @endif
+                                    Products
+                                </h1>
                             </div>
                         </div>
                     </div>
-                @empty
-                    <div class="p-2 col-md-12">
-                        <h4>No Related Products Available </h4>
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </div>
-    <div class="py-3 py-md-5 bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <h3>Related
-                        @if ($product)
-                            {{ $product->brand }}
-                        @endif
-                        Products
-                    </h3>
-                    <div class="underline"></div>
-                </div>
-                @forelse ($category->relatedProducts as $relatedProductItem)
-                    @if ($relatedProductItem->brand == "$product->brand")
-                        <div class="col-md-3 mb-3">
-                            <div class="product-card">
-                                <div class="product-card-img">
-                                    @if ($relatedProductItem->productImages->count() > 0)
-                                        <a
-                                            href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">
-
+                    @forelse ($category->relatedProducts->take(5) as $relatedProductItem)
+                        <div class="single-list">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="list-image overlay">
+                                        @if ($relatedProductItem->productImages->count() > 0)
                                             <img src="{{ asset($relatedProductItem->productImages[0]->image) }}"
+                                                style="with:154px; height:187px; object-fit:cover;"
                                                 alt="{{ $relatedProductItem->name }}">
-                                        </a>
-                                    @endif
+                                        @endif
+                                        <a wire:click="addToWishList({{ $relatedProductItem->id }})"
+                                            style="cursor: pointer" class="buy"><i
+                                                class="fa-regular fa-heart"></i></a>
+                                    </div>
                                 </div>
-                                <div class="product-card-body">
-                                    <p class="product-brand">{{ $relatedProductItem->brand }}</p>
-                                    <h5 class="product-name">
-                                        <a
-                                            href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">
-                                            {{ $relatedProductItem->name }}
-                                        </a>
-                                    </h5>
-                                    <div>
-                                        <span class="selling-price">${{ $relatedProductItem->selling_price }}</span>
-                                        <span class="original-price">${{ $relatedProductItem->original_price }}</span>
+                                <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                    <div class="content">
+                                        <h4 class="title"><a
+                                                href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">{{ $relatedProductItem->name }}</a>
+                                        </h4>
+                                        <p class="price with-discount">${{ $relatedProductItem->selling_price }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endif
-                @empty
-                    <div class="p-2 col-md-12">
-                        <h4>No Related Products Available </h4>
+                    @empty
+                        <div class="p-2 col-md-12">
+                            <h4>No Related Products Available </h4>
+                        </div>
+                    @endforelse
+
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="shop-section-title">
+                                <h1>
+                                    Related
+                                    @if ($product)
+                                        {{ $product->brandProduct->name }}
+                                    @endif
+                                    Products
+                                </h1>
+                            </div>
+                        </div>
                     </div>
-                @endforelse
+                    @forelse ($category->relatedProducts->take(5) as $relatedProductItem)
+                        @if ($relatedProductItem->brand == "$product->brand")
+                            <div class="single-list">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="list-image overlay">
+                                            @if ($relatedProductItem->productImages->count() > 0)
+                                                <img src="{{ asset($relatedProductItem->productImages[0]->image) }}"
+                                                    style="with:154px; height:187px; object-fit:cover;"
+                                                    alt="{{ $relatedProductItem->name }}">
+                                            @endif
+                                            <a wire:click="addToWishList({{ $relatedProductItem->id }})"
+                                                style="cursor: pointer" class="buy"><i
+                                                    class="fa-regular fa-heart"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                        <div class="content">
+                                            <h4 class="title"><a
+                                                    href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">{{ $relatedProductItem->name }}</a>
+                                            </h4>
+                                            <p class="price with-discount">${{ $relatedProductItem->selling_price }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @empty
+                        <div class="p-2 col-md-12">
+                            <h4>No Related Products Available </h4>
+                        </div>
+                    @endforelse
+
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- End Relative Product -->
 </div>
 
 @push('scripts')
-    <script>
-        $(function() {
-            $("#exzoom").exzoom({
-                "navWidth": 60,
-                "navHeight": 60,
-                "navItemNum": 5,
-                "navItemMargin": 7,
-                "navBorder": 1,
-                "autoPlay": false,
-                "autoPlayTimeout": 2000
-            });
-
-        });
-    </script>
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("demo");
+        let captionText = document.getElementById("caption");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+</script>
 @endpush

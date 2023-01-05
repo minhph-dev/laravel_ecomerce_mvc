@@ -84,7 +84,7 @@
         <thead>
             <tr>
                 <th width="50%" colspan="2">
-                    <h2 class="text-start">{{$appSetting->wedsite_name ?? 'wedsite name'}}</h2>
+                    <h2 class="text-start">{{$appSetting->wedsite_name ?? 'Wedsite Name'}}</h2>
                 </th>
                 <th width="50%" colspan="2" class="text-end company-data">
                     <span>Invoice Id: #{{$order->id}}</span> <br>
@@ -187,7 +187,7 @@
 
     <br>
     <p class="text-center">
-        Thank your for shopping with Funda of Web IT
+        Thank your for shopping with  {{ $appSetting->wedsite_name ?? 'Wedsite Name' }}
     </p>
 
 </body>

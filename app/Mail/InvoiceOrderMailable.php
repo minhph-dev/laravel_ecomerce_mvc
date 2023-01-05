@@ -4,10 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
 
 class InvoiceOrderMailable extends Mailable
 {
@@ -19,21 +16,10 @@ class InvoiceOrderMailable extends Mailable
     {
         $this->order = $order;
     }
-
    
-    public function envelope()
-    {
-        return new Envelope(
-            from: new Address('sendmailprod.dev@gmail.com', 'Jeffrey Way'),
-            subject: 'Order Shipped',
-        );
-    }
-
-    public function content()
-    {
-        return new Content(
-            view: 'admin.invoice.generate-invoice',
-        );
+    public function build(){
+        $subject = "Your Order Invoice";
+        return $this->subject($subject)->view('admin.invoice.generate-invoice');
     }
    
 }

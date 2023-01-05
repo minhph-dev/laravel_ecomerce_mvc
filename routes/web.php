@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -21,22 +22,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
+Route::get('login-google' , [LoginController::class , 'redirectToGoogle']);
+Route::get('google-callback' , [LoginController::class , 'handleGoogleCallback']);
 
-Route::controller(FrontendController::class)->group(function(){
-    Route::get('/','index');
-    Route::get('/collections','categories');
-    Route::get('/collections/{category_slug}','products');
-    Route::get('/collections/{category_slug}/{product_slug}','productView');
-    
+Route::controller(FrontendController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/collections', 'categories');
+    Route::get('/collections/{category_slug}', 'products');
+    Route::get('/collections/{category_slug}/{product_slug}', 'productView');
+    Route::get('/collections/api/{category_slug}/{product_slug}', 'productViewApi');
+
     Route::get('/new-arrivals', 'newArrivals');
     Route::get('/featured-products', 'featuredProducts');
+
+    Route::get('/contact-us', 'contact');
 
     Route::get('search', 'searchProducts');
 });
 
 
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index']);
     Route::get('/cart', [CartController::class, 'index']);
     Route::get('/checkout', [CheckoutController::class, 'index']);
@@ -54,21 +60,21 @@ Route::get('thank-you', [FrontendController::class, 'thankyou']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
+Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('settings', [SettingController::class, 'index']);
     Route::post('settings', [SettingController::class, 'store']);
 
-    Route::controller(SliderController::class)->group(function(){
-       Route::get('/sliders', 'index');
-       Route::get('/sliders/create', 'create');
-       Route::post('/sliders/create', 'store');
-       Route::get('/sliders/{slider}/edit', 'edit');
-       Route::put('/sliders/{slider}', 'update');
-       Route::get('/sliders/{slider}/delete', 'destroy');
+    Route::controller(SliderController::class)->group(function () {
+        Route::get('/sliders', 'index');
+        Route::get('/sliders/create', 'create');
+        Route::post('/sliders/create', 'store');
+        Route::get('/sliders/{slider}/edit', 'edit');
+        Route::put('/sliders/{slider}', 'update');
+        Route::get('/sliders/{slider}/delete', 'destroy');
     });
 
-    Route::controller(CategoryController::class)->group(function(){
+    Route::controller(CategoryController::class)->group(function () {
         Route::get('/category', 'index');
         Route::get('/category/create', 'create');
         Route::post('/category', 'store');
@@ -91,7 +97,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
     //     Route::get('/product-color/{prod_color_id}/delete','deleteProdColor');
     // });
 
-    Route::controller(ColorController::class)->group(function(){
+    Route::controller(ColorController::class)->group(function () {
         Route::get('/colors', 'index');
         Route::get('/colors/create', 'create');
         Route::post('/colors/create', 'store');
@@ -101,26 +107,23 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function(){
     });
 
 
-    Route::controller(AdminOrderController::class)->group(function(){
+    Route::controller(AdminOrderController::class)->group(function () {
         Route::get('/orders', 'index');
         Route::get('/orders/{orderId}', 'show');
         Route::put('/orders/{orderId}', 'updateOrderStatus');
 
         Route::get('/invoice/{orderId}', 'viewInvoice');
         Route::get('/invoice/{orderId}/generate', 'generateInvoice');
-        
-        Route::get('/invoice/{orderId}/email', 'mailInvoice');
+
+        Route::get('/invoice/{orderId}/mail', 'mailInvoice');
     });
 
-    Route::controller(UserController::class)->group(function(){
+    Route::controller(UserController::class)->group(function () {
         Route::get('/users', 'index');
         Route::get('/users/create', 'create');
         Route::post('/users', 'store');
         Route::get('/users/{user_id}/edit', 'edit');
         Route::put('/users/{user_id}', 'update');
         Route::get('/users/{user_id}/delete', 'destroy');
-
     });
-     
-
 });

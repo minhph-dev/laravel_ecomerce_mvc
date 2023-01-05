@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -16,24 +15,18 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+        rel="stylesheet">
 
-    {{-- Boostrap --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-
-    {{-- Exzoom -Product Image --}}
-    <link rel="stylesheet" href="{{ asset('assets/exzoom/jquery.exzoom.css') }}">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Font awersome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
-    {{-- Owl carousel 2 --}}
+    <!-- Alertifyjs -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+
+    <!-- OwlCarousel 2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
         integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -42,21 +35,27 @@
         integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/frontend/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/frontend/css/magnific-popup.min.css">
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/frontend/css/jquery.fancybox.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/frontend/css/niceselect.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/frontend/css/animate.css">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="/frontend/css/flex-slider.min.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="/frontend/css/slicknav.min.css">
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="/frontend/css/reset.css">
+    <link rel="stylesheet" href="/frontend/style.css">
+    <link rel="stylesheet" href="/frontend/css/responsive.css">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    <style>
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background: #888;
-        }
-        ::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey;
-            border-radius: 10px;
-        }
-    </style>
 </head>
 
 <body>
@@ -67,18 +66,6 @@
         </main>
         @include('layouts.inc.frontend.footer')
     </div>
-
-    {{-- Bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-
-    {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
-    {{-- Exzoom --}}
-    <script src="{{ asset('assets/exzoom/jquery.exzoom.js') }}"></script>
 
     <!-- Alertify -->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
@@ -91,7 +78,7 @@
         });
     </script>
 
-    {{-- Owl Carousel --}}
+    <!-- OwlCarousel 2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -100,6 +87,145 @@
     @yield('script')
     @stack('scripts')
 
+    <!-- Jquery -->
+    <script src="/frontend/js/jquery.min.js"></script>
+    <script src="/frontend/js/jquery-migrate-3.0.0.js"></script>
+    <script src="/frontend/js/jquery-ui.min.js"></script>
+    <!-- Popper JS -->
+    <script src="/frontend/js/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="/frontend/js/bootstrap.min.js"></script>
+    <!-- Color JS -->
+    <script src="/frontend/js/colors.js"></script>
+    <!-- Slicknav JS -->
+    <script src="/frontend/js/slicknav.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="/frontend/js/magnific-popup.js"></script>
+    <!-- Waypoints JS -->
+    <script src="/frontend/js/waypoints.min.js"></script>
+    <!-- Countdown JS -->
+    <script src="/frontend/js/finalcountdown.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="/frontend/js/nicesellect.js"></script>
+    <!-- Flex Slider JS -->
+    <script src="/frontend/js/flex-slider.js"></script>
+    <!-- ScrollUp JS -->
+    <script src="/frontend/js/scrollup.js"></script>
+    <!-- Onepage Nav JS -->
+    <script src="/frontend/js/onepage-nav.min.js"></script>
+    <!-- Easing JS -->
+    <script src="/frontend/js/easing.js"></script>
+    <!-- Google Map JS -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnhgNBg6jrSuqhTeKKEFDWI0_5fZLx0vM"></script>
+    <script src="/frontend/js/gmap.min.js"></script>
+    <script src="/frontend/js/map-script.js"></script>
+    <!-- Active JS -->
+    <script src="/frontend/js/active.js"></script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                            class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row no-gutters">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div id="modal-product-img" class="p-5"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="quickview-content">
+                                <h2 id="modal-product-name"></h2>
+                                <div class="quickview-ratting-review">
+                                    <div class="quickview-ratting-wrap">
+                                        <div class="quickview-ratting">
+                                            <i class="yellow fa fa-star"></i>
+                                            <i class="yellow fa fa-star"></i>
+                                            <i class="yellow fa fa-star"></i>
+                                            <i class="yellow fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <a href="#"> (1 customer review)</a>
+                                    </div>
+                                    <div class="quickview-stock d-flex align-items-center" id="quickview-stock">
+                                        <span><i class="fa-regular fa-circle-check"></i> in stock</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <h3 id="modal-product-price"></h3>
+                                    <h3>$</h3>
+                                </div>
+                                <div class="quickview-peragraph">
+                                    <p id="modal-product-desc"></p>
+                                </div>
+                                <div class="my-3" id="modal-product-color"></div>
+
+                                <div class="default-social">
+                                    <h4 class="share-now">Share:</h4>
+                                    <ul>
+                                        <li><a class="facebook" href="#"><i
+                                                    class="fa-brands fa-facebook-f"></i></a>
+                                        </li>
+                                        <li><a class="twitter" href="#"><i
+                                                    class="fa-brands fa-twitter"></i></a></li>
+                                        <li><a class="youtube" href="#"><i
+                                                    class="fa-brands fa-pinterest-p"></i></a>
+                                        </li>
+                                        <li><a class="dribbble" href="#"><i
+                                                    class="fa-brands fa-google-plus"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('body').on('click', '.btnQuickView', function(e) {
+                e.preventDefault();
+                var data = $(this).data();
+                var product_slug = data.productSlug;
+                var category_slug = data.categorySlug;
+
+                $.ajax({
+                    type: "GET",
+                    dataType: 'json',
+                    url: "/collections/api/" + category_slug + "/" + product_slug,
+                    success: function(response) {
+                        var data = response.data;
+                        $('#quickViewModal #modal-product-name').html(data.product.name);
+                        $('#quickViewModal #modal-product-price').html(data.product
+                            .selling_price);
+                        $('#quickViewModal #modal-product-desc').html(data.product.description);
+                        if (data.product.quantity > 0) {
+                            document.getElementById('quickview-stock').innerHTML = `
+                                <span><i class="fa-regular fa-circle-check"></i> In Stock</span>
+                            `;
+                        } else {
+                            document.getElementById('quickview-stock').innerHTML = `
+                                <span><i class="fa-solid fa-ban text-danger"></i> Out Of Stock</span>
+                            `;
+                        }
+                        document.getElementById('modal-product-img').innerHTML = `
+                            <img src="${data.productImages['0']['image']}" alt="#" style="width:100%;height:auto"  >
+                        `;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

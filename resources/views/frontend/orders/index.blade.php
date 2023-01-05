@@ -5,11 +5,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="shadow bg-white p-3">
-                        <h4 class="mb-4">My orders</h4>
-                        <hr>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                    <div class="shadow bg-white">
+                        <div class="col-md-12">
+                            <h4>My Order </h4>
+                            <div class="underline mb-4" style="background: #F7941D"></div>
+                        </div>
+                        <div class="table-responsive col-md-12">
+                            <table class="table table-striped">
                                 <thead>
                                     <th>Order ID</th>
                                     <th>Tracking No</th>
@@ -22,23 +24,24 @@
                                 <tbody>
                                     @forelse ($orders as $item)
                                         <tr>
-                                            <td>{{$item->id}}</td>
-                                            <td>{{$item->tracking_no}}</td>
-                                            <td>{{$item->fullname}}</td>
-                                            <td>{{$item->payment_mode}}</td>
-                                            <td>{{$item->created_at->format('d-m-Y')}}</td>
-                                            <td>{{$item->status_message}}</td>
-                                            <td><a href="{{url('orders/'.$item->id)}}" class="btn btn-primary">View</a></td>
+                                            <td style="vertical-align: middle" >{{ $item->id }}</td>
+                                            <td style="vertical-align: middle" >{{ $item->tracking_no }}</td>
+                                            <td style="vertical-align: middle" >{{ $item->fullname }}</td>
+                                            <td style="vertical-align: middle" >{{ $item->payment_mode }}</td>
+                                            <td style="vertical-align: middle" >{{ $item->created_at->format('d-m-Y') }}</td>
+                                            <td style="vertical-align: middle" >{{ $item->status_message }}</td>
+                                            <td style="vertical-align: middle" ><a href="{{ url('orders/' . $item->id) }}"
+                                                    class="btn btn-sm text-white">View</a></td>
                                         </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="7">No Orders Available</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="7">No Orders Available</td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                             <div>
-                                {{$orders->links()}}
+                                {{ $orders->links() }}
                             </div>
                         </div>
                     </div>
