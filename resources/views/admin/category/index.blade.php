@@ -20,6 +20,7 @@
                                 <tr>
                                     <td>ID</td>
                                     <td>Name</td>
+                                    <td>Image</td>
                                     <td>Status</td>
                                     <td>Action</td>
                                 </tr>
@@ -29,6 +30,9 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $category->name }}</td>
+                                        <td>
+                                            <img src="{{ asset($category->image) }}" width="60px" height="60px" />
+                                        </td>
                                         <td>{{ $category->status == '1' ? 'Hidden' : 'Visible' }}</td>
                                         <td>
                                             <a href="{{ url('admin/category/' . $category->id . '/edit') }}"
