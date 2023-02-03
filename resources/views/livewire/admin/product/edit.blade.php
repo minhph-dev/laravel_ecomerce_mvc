@@ -81,8 +81,8 @@
                             @if ($imageEdit)
                                 @foreach ($imageEdit as $item)
                                     <span class="warpper-image">
-                                        <img src="{{ asset($item->image) }}" width="100px" />
-                                        <span class="btnDeleteImage" wire:click="deleteImage({{ $item->id }})"><i
+                                        <img src="{{ asset($item['image']) }}" width="100px">
+                                        <span class="btnDeleteImage" wire:click="deleteImage({{ $item['id'] }})"><i
                                                 class="fa-solid fa-xmark"></i></span>
 
                                     </span>
@@ -226,8 +226,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="input-group mb-3" style="width:200px">
-                                                        <div class="btn btn-primary text-white">
-                                                            {{ $prodColor->quantity }}</div>
+                                                        <div class="btn btn-primary text-white">{{ $prodColor->quantity }}</div>
                                                         <input type="text"
                                                             wire:model.defer="productColorQuantity.{{ $prodColor->id }}"
                                                             class="productColorQuantity form-control form-control-sm border-primary" />
