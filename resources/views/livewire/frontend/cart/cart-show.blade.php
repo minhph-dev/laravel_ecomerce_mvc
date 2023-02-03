@@ -4,8 +4,7 @@
             <h4 style="font-weight: 500">My Cart
                 <a href="/" class="btn btn-warning float-right text-white">Back</a>
             </h4>
-            <div class="underline mb-4" style="background: #F7941D">
-            </div>
+            <div class="my-2" style="background: #F7941D; height: 3px;width:100px;"></div>
         </div>
         <div class="container">
             <div class="row">
@@ -30,7 +29,7 @@
                                                 <a
                                                     href="{{ url('collections/' . $cartItem->product->category->slug . '/' . $cartItem->product->slug) }}">
                                                     <img src="{{ asset($cartItem->product->productImages[0]->image) }}"
-                                                        style="width: 100px; height: 100px" alt="">
+                                                        style="width: auto; height: 100px" alt="">
                                                 </a>
                                             @else
                                                 <img src="https://via.placeholder.com/100x100" alt="#">
@@ -46,7 +45,7 @@
                                             <p class="product-des">
                                                 @if ($cartItem->productColor)
                                                     @if ($cartItem->productColor->color)
-                                                        <span>-Color:
+                                                        <span style="text-transform: capitalize">Color:
                                                             {{ $cartItem->productColor->color->name }}</span>
                                                     @endif
                                                 @endif

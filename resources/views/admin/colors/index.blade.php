@@ -38,6 +38,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="float-end mt-3">
+                        {{ $colors->links() }}
+                    </div>
                 </div>
             </div>
         </div>

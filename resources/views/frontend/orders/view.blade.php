@@ -10,8 +10,7 @@
                             <h4>My Orders Details
                                 <a href="{{ url('orders') }}" class="btn btn-warning float-right text-white">Back</a>
                             </h4>
-                            <div class="underline mb-4" style="background: #F7941D">
-                            </div>
+                            <div class="my-2" style="background: #F7941D; height: 3px;width:200px;"></div>
                         </div>
 
                         <div class="row col-md-12">
@@ -40,7 +39,7 @@
                         </div>
                         <div class="col-md-12">
                             <h5 class="mt-4" style="font-weight: 500">Order Items</h5>
-                            <div class="underline mb-3" style="background: #F7941D"></div>
+                            <div class="my-2" style="background: #F7941D; height: 3px;width:100px;"></div>
                         </div>
                         <div class="table-responsive col-md-12">
                             <table class="table table-bordered table-striped">

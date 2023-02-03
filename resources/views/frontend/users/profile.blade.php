@@ -9,8 +9,7 @@
                         <a href="{{ url('change-password') }}" class="btn btn-warning float-right text-white">Change Password
                             ?</a>
                     </h4>
-                    <div class="underline mb-4" style="background: #F7941D">
-                    </div>
+                    <div class="my-2" style="background: #F7941D; height: 3px;width:150px;"></div>
                 </div>
 
                 <div class="col-md-10">

@@ -36,7 +36,8 @@
                         </h4>
                         <div class="d-flex my-3">
                             <h5 style="font-weight: 600">${{ $product->selling_price }}</h5>
-                            <span class="original-price mx-2">${{ $product->original_price }}</span>
+                            <span class="original-price mx-2"
+                                style="text-decoration-line: line-through">${{ $product->original_price }}</span>
                         </div>
                         <p>{!! $product->description !!}</p>
                         <div class="my-3">
@@ -45,22 +46,26 @@
                                     <h5 style="font-weight: 500">Colors: </h5>
                                     @if ($product->productColors)
                                         @foreach ($product->productColors as $colorItem)
-                                            <div class="colorSelectionLabel mx-2 d-flex justify-content-center align-items-center" 
+                                            <div class="colorSelectionLabel mx-2 d-flex justify-content-center align-items-center"
                                                 name="colorSelection" wire:click="colorSelected({{ $colorItem->id }})"
-                                                onclick="this.style.border = '3px solid #F7941D' "
+                                                onclick="this.style.border = '3px solid #28A745' "
                                                 style="width:30px;height:30px;cursor:pointer;border-radius:50%;background-color:{{ $colorItem->color->code }}">
                                             </div>
                                         @endforeach
                                     @endif
                                 </div>
                                 <div>
-                                    @if ($this->prodColorSelectedQuantity == 'outOfStock')
+                                    @if ($this->prodColorSelectedQuantity == '0')
+                                        <span class="btn-sm text-secondary py-1 mt-2"
+                                            style="text-transform: capitalize;background-color:{{ $this->productColor->color->code }}">{{ $this->productColor->color->name }}</span>
                                         <label class="btn-sm py-1 mt-2 text-white bg-danger"> <i
                                                 class="fa-regular fa-face-surprise" style="margin-right:5px"></i></i>Out
                                             of Stock</label>
                                     @elseif($this->prodColorSelectedQuantity > 0)
-                                        <label class="btn-sm py-1 mt-2 text-white bg-success"><i
-                                                class="fa-regular fa-circle-check" style="margin-right:5px"></i>In
+                                        <span class="btn-sm text-secondary py-1 mt-2"
+                                            style="text-transform: capitalize;background-color:{{ $this->productColor->color->code }}">{{ $this->productColor->color->name }}</span>
+                                        <label class="btn-sm py-1 mt-2 text-white bg-success">
+                                            <i class="fa-regular fa-circle-check" style="margin-right:5px"></i>In
                                             Stock</label>
                                     @endif
                                 </div>
@@ -98,9 +103,9 @@
     {{-- End Product Detail --}}
 
     {{-- Start Comment --}}
-    <div class="container">
+    <div class="container mb-5">
         <h5 class="my-3" style="font-weight: 600;border-left:3px solid #F7941D; padding-left:3px">Comments</h5>
-        @forelse ($product->comments as $comment)
+        @forelse ($comments as $comment)
             <div class="row p-4">
                 <div style="width:5%">
                     <div class="rounded-circle border shadow p-2 d-flex align-items-center justify-content-center"
@@ -108,19 +113,20 @@
                 </div>
                 <div style="width:95%">
                     <div class="d-flex align-items-center">
-                        <div class="font-bold text-lg">{{ $comment->user->name }}</div>
+                        <div style="font-weight: 500;" class="font-bold text-lg">{{ $comment->user->name }}</div>
                         <div class="text-xs text-gray-500 mx-2 font-semibold" style="font-size: 12px">
                             {{ $comment->created_at->diffForHumans() }}</div>
                     </div>
                     <p class="text-gray-800">{{ $comment->comment }}</p>
                     @if ($comment->image)
-                        <img src="{{ asset('uploads/' . "$comment->image") }}" width="100px" />
+                        <img src="{{ asset($comment->image) }}" width="100px" />
                     @endif
                 </div>
             </div>
         @empty
             <p>There are no reviews yet !!</p>
         @endforelse
+            {{$comments->links()}}
         @error('newComment')
             <span class="text-red-500 text-xs">{{ $message }}</span>
         @enderror
@@ -158,7 +164,7 @@
     <section class="shop-home-list section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
+                <div class="col-lg-6 col-md-6 col-12">
                     <div class="row">
                         <div class="col-12">
                             <div class="shop-section-title">
@@ -174,7 +180,7 @@
                     @forelse ($category->relatedProducts->take(5) as $relatedProductItem)
                         <div class="single-list">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
+                                <div class="col-lg-7 col-md-6 col-12">
                                     <div class="list-image overlay">
                                         @if ($relatedProductItem->productImages->count() > 0)
                                             <img src="{{ asset($relatedProductItem->productImages[0]->image) }}"
@@ -186,7 +192,7 @@
                                                 class="fa-regular fa-heart"></i></a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                <div class="col-lg-5 col-md-6 col-12 no-padding">
                                     <div class="content">
                                         <h4 class="title"><a
                                                 href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">{{ $relatedProductItem->name }}</a>
@@ -203,7 +209,7 @@
                     @endforelse
 
                 </div>
-                <div class="col-lg-4 col-md-6 col-12">
+                <div class="col-lg-6 col-md-6 col-12">
                     <div class="row">
                         <div class="col-12">
                             <div class="shop-section-title">
@@ -221,7 +227,7 @@
                         @if ($relatedProductItem->brand == "$product->brand")
                             <div class="single-list">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="col-lg-7 col-md-6 col-12">
                                         <div class="list-image overlay">
                                             @if ($relatedProductItem->productImages->count() > 0)
                                                 <img src="{{ asset($relatedProductItem->productImages[0]->image) }}"
@@ -233,7 +239,7 @@
                                                     class="fa-regular fa-heart"></i></a>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                    <div class="col-lg-5 col-md-6 col-12 no-padding">
                                         <div class="content">
                                             <h4 class="title"><a
                                                     href="{{ url('/collections/' . $relatedProductItem->category->slug . '/' . $relatedProductItem->slug) }}">{{ $relatedProductItem->name }}</a>
@@ -246,7 +252,7 @@
                             </div>
                         @endif
                     @empty
-                        <div class="p-2 col-md-12">
+                        <div class="p-2 single-list col-md-12">
                             <h4>No Related Products Available </h4>
                         </div>
                     @endforelse
@@ -259,35 +265,38 @@
 </div>
 
 @push('scripts')
-<script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("demo");
-        let captionText = document.getElementById("caption");
-        if (n > slides.length) {
-            slideIndex = 1
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
         }
-        if (n < 1) {
-            slideIndex = slides.length
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
         }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("demo");
+            let captionText = document.getElementById("caption");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
         }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        captionText.innerHTML = dots[slideIndex - 1].alt;
-    }
-</script>
+    </script>
 @endpush

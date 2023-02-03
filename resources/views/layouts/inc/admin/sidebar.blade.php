@@ -27,27 +27,6 @@
             </a>
         </li>
 
-        {{-- <li class="nav-item {{ Request::is('admin/products*') ? 'active' : '' }}">
-            <a class="nav-link" data-bs-toggle="collapse" href="#products"
-                aria-expanded="{{ Request::is('admin/products*') ? 'true' : 'false' }}" aria-controls="products">
-                <i class="fa-solid fa-table-list"></i>
-                <span class="menu-title ms-3">Products</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse {{ Request::is('admin/products*' ? 'show' : '') }}" id="products">
-                <ul class="nav flex-column sub-menu">
-                    <div class="nav-item">
-                        <a class="nav-link {{ Request::is('admin/products/create') ? 'active' : '' }}"
-                            href="/admin/products/create">Add products</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link {{ Request::is('admin/products') || Request::is('admin/products/*/edit') ? 'active' : '' }}"
-                            href="/admin/products">List products</a>
-                    </div>
-                </ul>
-            </div>
-        </li> --}}
-
         <li class="nav-item {{ Request::is('admin/products*' ? 'active' : '') }}">
             <a class="nav-link" href="/admin/products">
                 <i class="fa-solid fa-table-list"></i>
@@ -80,6 +59,13 @@
             <a class="nav-link" href="{{ url('admin/settings') }}">
                 <i class="fa-solid fa-gear"></i>
                 <span class="menu-title ms-3">Site Setting</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/') }}">
+                <i class="fa-solid fa-house-user"></i>
+                <span class="menu-title ms-3">Back Home</span>
             </a>
         </li>
     </ul>

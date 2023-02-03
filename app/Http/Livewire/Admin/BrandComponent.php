@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Brand;
+namespace App\Http\Livewire\Admin;
 
-use App\Models\Brands;
-use App\Models\Category;
+use App\Models\Brand;
 use Livewire\Component;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 
-class Index extends Component
+class BrandComponent extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -32,7 +32,7 @@ class Index extends Component
     }
     public function storeBrand(){
         $validatedData = $this->validate();
-        Brands::create([
+        Brand::create([
             'name' =>$this->name,
             'slug' => Str::slug($this->slug),
             'status' => $this->status == true ? '1' : '0',
@@ -45,7 +45,7 @@ class Index extends Component
 
     public function editBrand(int $brand_id){
         $this->brand_id = $brand_id;
-        $brand = Brands::findOrFail($brand_id);
+        $brand = Brand::findOrFail($brand_id);
         $this->name =$brand->name;
         $this->slug =$brand->slug;
         $this->status =$brand->status;
@@ -54,7 +54,7 @@ class Index extends Component
 
     public function updateBrand(){
         $validatedData = $this->validate();
-        Brands::findOrFail($this->brand_id)->update([
+        Brand::findOrFail($this->brand_id)->update([
             'name' =>$this->name,
             'slug' => Str::slug($this->slug),
             'status' => $this->status == true ? '1' : '0',
@@ -70,7 +70,7 @@ class Index extends Component
     }
 
     public function destroyBrand(){
-        Brands::findOrFail($this->brand_id)->delete();
+        Brand::findOrFail($this->brand_id)->delete();
         session()->flash('message','Brand Deleted Successfully');
         $this->dispatchBrowserEvent('close-modal');
         $this->resetInput();
@@ -79,7 +79,7 @@ class Index extends Component
     public function render()
     {
         $categories = Category::where('status','0')->get();
-        $brands = Brands::orderBy('id', 'DESC')->paginate(10);
+        $brands = Brand::orderBy('created_at', 'DESC')->paginate(5);
         return view('livewire.admin.brand.index', ['brands' => $brands, 'categories' => $categories])
                      ->extends('layouts.admin')
                      ->section('content');

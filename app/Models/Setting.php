@@ -18,6 +18,10 @@ class Setting extends Model
         'address',
         'phone1',
         'phone2',
+        'email1',
+        'email2',
+        'facebook',
+        'twitter',
         'instagram',
         'youtube'
     ];

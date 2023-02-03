@@ -8,7 +8,8 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Slider List
-                        <a href="{{ url('admin/sliders/create') }}" class="btn btn-primary btn-sm text-white float-end">Add Slider</a>
+                        <a href="{{ url('admin/sliders/create') }}" class="btn btn-primary btn-sm text-white float-end">Add
+                            Slider</a>
                     </h3>
                 </div>
                 <div class="card-body">
@@ -45,6 +46,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-3 float-end">
+                        {{ $sliders->links() }}
+                    </div>
                 </div>
             </div>
         </div>

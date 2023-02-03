@@ -66,7 +66,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div>
+                        <div class="float-end mt-3">
                             {{ $orders->links() }}
                         </div>
                     </div>

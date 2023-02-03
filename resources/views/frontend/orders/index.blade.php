@@ -8,7 +8,7 @@
                     <div class="shadow bg-white">
                         <div class="col-md-12">
                             <h4>My Order </h4>
-                            <div class="underline mb-4" style="background: #F7941D"></div>
+                            <div class="my-2" style="background: #F7941D; height: 3px;width:100px;"></div>
                         </div>
                         <div class="table-responsive col-md-12">
                             <table class="table table-striped">

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(){
-        $users = User::paginate(10);
+        $users = User::paginate(5);
         return view('admin.users.index', compact('users'));
     }
     public function create(){

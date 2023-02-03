@@ -6,27 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+  
     public function up()
     {
         Schema::create('colors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->tinyInteger('status')->default('0');
+            $table->tinyInteger('status')->default('0')->comment('0=visible, 1=hidden');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('colors');

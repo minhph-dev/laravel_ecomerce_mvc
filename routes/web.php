@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UserController;
@@ -16,52 +15,52 @@ use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\UserController as FrontendUserController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\Admin\Brand\Index;
+use App\Http\Livewire\Admin\BrandComponent;
 use App\Http\Livewire\Admin\ProductComponent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+// Guest
 Auth::routes();
-Route::get('login-google' , [LoginController::class , 'redirectToGoogle']);
-Route::get('google-callback' , [LoginController::class , 'handleGoogleCallback']);
+Route::get('login-google', [LoginController::class, 'redirectToGoogle']);
+Route::get('google-callback', [LoginController::class, 'handleGoogleCallback']);
+Route::get('thank-you', [FrontendController::class, 'thankyou']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/collections', 'categories');
     Route::get('/collections/{category_slug}', 'products');
     Route::get('/collections/{category_slug}/{product_slug}', 'productView');
-    Route::get('/collections/api/{category_slug}/{product_slug}', 'productViewApi');
-
+    Route::get('/api/collections/{product_id}', 'productViewApi');
     Route::get('/new-arrivals', 'newArrivals');
     Route::get('/featured-products', 'featuredProducts');
-
     Route::get('/contact-us', 'contact');
-
     Route::get('search', 'searchProducts');
+    Route::get('sendmail', 'sendmail');
 });
-
-
-
+ 
+// User
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index']);
     Route::get('/cart', [CartController::class, 'index']);
     Route::get('/checkout', [CheckoutController::class, 'index']);
-
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{orderId}', [OrderController::class, 'show']);
-
     Route::get('/profile', [FrontendUserController::class, 'index']);
     Route::post('/profile', [FrontendUserController::class, 'updateUserDetail']);
     Route::get('/change-password', [FrontendUserController::class, 'passwordCreate']);
     Route::post('/change-password', [FrontendUserController::class, 'changePassword']);
 });
 
-Route::get('thank-you', [FrontendController::class, 'thankyou']);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+// Admin
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
+
     Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::get('/products', ProductComponent::class);
+    Route::get('/brands', BrandComponent::class);
     Route::get('settings', [SettingController::class, 'index']);
     Route::post('settings', [SettingController::class, 'store']);
 
@@ -80,22 +79,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/category', 'store');
         Route::get('/category/{category}/edit', 'edit');
         Route::put('/category/{category}', 'update');
+        Route::get('/category/{category}/delete', 'destroy');
     });
-
-    Route::get('/brands', Index::class);
-    Route::get('/products', ProductComponent::class);
-
-    // Route::controller(ProductController::class)->group(function(){
-    //     Route::get('/products', 'index');
-    //     Route::get('/products/create', 'create');
-    //     Route::post('/products', 'store');
-    //     Route::get('/products/{product}/edit', 'edit');
-    //     Route::put('/products/{product}', 'update');
-    //     Route::get('/products/{product_id}/delete', 'destroy');
-    //     Route::get('product-image/{product_image_id}/delete', 'destroyImage');
-    //     Route::post('/product-color/{prod_color_id}','updateProdColorQty');
-    //     Route::get('/product-color/{prod_color_id}/delete','deleteProdColor');
-    // });
 
     Route::controller(ColorController::class)->group(function () {
         Route::get('/colors', 'index');
@@ -106,15 +91,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/colors/{color_id}/delete', 'destroy');
     });
 
-
     Route::controller(AdminOrderController::class)->group(function () {
         Route::get('/orders', 'index');
         Route::get('/orders/{orderId}', 'show');
         Route::put('/orders/{orderId}', 'updateOrderStatus');
-
         Route::get('/invoice/{orderId}', 'viewInvoice');
         Route::get('/invoice/{orderId}/generate', 'generateInvoice');
-
         Route::get('/invoice/{orderId}/mail', 'mailInvoice');
     });
 

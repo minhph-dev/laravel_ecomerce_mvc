@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ColorController extends Controller
 {
     public function index(){
-        $colors = Color::all();
+        $colors = Color::orderBy('id', 'ASC')->paginate(5);
         return view('admin.colors.index', compact('colors'));    
     }
     public function create(){

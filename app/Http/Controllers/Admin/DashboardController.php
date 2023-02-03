@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brands;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         $totalProducts = Product::count();
         $totalCategories = Category::count();
-        $totalBrands = Brands::count();
+        $totalBrands = Brand::count();
 
         $totalAllUsers = User::count();
         $totalUser = User::where('role_as', '0')->count();

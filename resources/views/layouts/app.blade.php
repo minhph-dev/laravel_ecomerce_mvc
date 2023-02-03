@@ -196,13 +196,10 @@
             $('body').on('click', '.btnQuickView', function(e) {
                 e.preventDefault();
                 var data = $(this).data();
-                var product_slug = data.productSlug;
-                var category_slug = data.categorySlug;
-
                 $.ajax({
                     type: "GET",
                     dataType: 'json',
-                    url: "/collections/api/" + category_slug + "/" + product_slug,
+                    url: "/api/collections/" + data.productId,
                     success: function(response) {
                         var data = response.data;
                         $('#quickViewModal #modal-product-name').html(data.product.name);
@@ -226,6 +223,7 @@
             });
         });
     </script>
+    
 </body>
 
 </html>

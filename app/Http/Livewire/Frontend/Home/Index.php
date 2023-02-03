@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public  $product, $productColorId = 1 ;
+    public  $product, $productColorId = 1;
     public function addToWishList($productId)
     {
         if (Auth::check()) {
@@ -134,7 +134,7 @@ class Index extends Component
     public function render()
     {
         $sliders = Slider::where('status', '0')->get();
-        $trendingProducts = Product::where('trending', '1')->latest()->take(15)->get();
+        $trendingProducts = Product::where('trending', '1')->latest()->take(16)->get();
         $newArrivalsProducts = Product::latest()->take(14)->get();
         $featuredProducts = Product::where('featured', '1')->latest()->take(14)->get();
         return view('livewire.frontend.home.index', [

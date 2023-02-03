@@ -78,7 +78,7 @@
                             <div class="content">
                                 <ul>
                                     <li>Sub Total<span>${{ $this->totalProductAmount }}</span></li>
-                                    <li>(+) Shipping<span>$10.00</span></li>
+                                    <li>(+) Shipping<span>$00.00</span></li>
                                     <li class="last">Total<span>${{ $this->totalProductAmount }}</span></li>
                                 </ul>
                             </div>
@@ -235,7 +235,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '0.01' // Can also reference a variable or function //{{ $this->totalProductAmount }}
+                            value: {{ $this->totalProductAmount }}
                         }
                     }]
                 });

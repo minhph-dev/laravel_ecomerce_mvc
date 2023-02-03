@@ -12,7 +12,7 @@ use Livewire\WithFileUploads;
 
 class View extends Component
 {
-    public $category, $product, $prodColorSelectedQuantity, $quantityCount = 1, $productColorId, $comment, $photo;
+    public $category, $product, $prodColorSelectedQuantity, $quantityCount = 1, $productColor='0', $productColorId, $comment, $photo;
     use WithFileUploads;
 
     public function addComment(int $productId)
@@ -48,12 +48,12 @@ class View extends Component
         if (!$this->photo) {
             return null;
         }
-        // dd($this->photo);
         $imageName = $this->photo->hashName();
         $manager = new ImageManager();
         $image = $manager->make($this->photo)->resize(300,200);
         $image ->save('uploads/'.$imageName);
-        return $imageName;
+        $imagePath = 'uploads/'.$imageName;
+        return $imagePath;
     }
 
     public function addToWishList($productId)
@@ -94,12 +94,8 @@ class View extends Component
     public function colorSelected($productColorId)
     {
         $this->productColorId = $productColorId;
-        $productColor =  $this->product->productColors()->where('id', $productColorId)->first();
-        $this->prodColorSelectedQuantity = $productColor->quantity;
-
-        if ($this->prodColorSelectedQuantity == 0) {
-            $this->prodColorSelectedQuantity == 'outOfStock';
-        }
+        $this->productColor =  $this->product->productColors()->where('id', $productColorId)->first();
+        $this->prodColorSelectedQuantity = $this->productColor->quantity;
     }
 
     public function incrementQuantity()
@@ -118,8 +114,8 @@ class View extends Component
     {
         if (Auth::check()) {
             if ($this->product->where('id', $productId)->where('status', '0')->exists()) {
-                if ($this->product->productColors()->count() > 1) {
-                    if ($this->prodColorSelectedQuantity != null) {
+                if ($this->product->productColors()->count() > 0) {
+                    if ($this->prodColorSelectedQuantity!='') {
                         if (Cart::where('user_id', auth()->user()->id)
                             ->where('product_id', $productId)
                             ->where('product_color_id', $this->productColorId)
@@ -131,10 +127,9 @@ class View extends Component
                                 'status' => 200
                             ]);
                         } else {
-
                             $productColor = $this->product->productColors()->where('id', $this->productColorId)->first();
                             if ($productColor->quantity > 0) {
-                                if ($productColor->quantity > $this->quantityCount) {
+                                if ($productColor->quantity >= $this->quantityCount) {
                                     Cart::create([
                                         'user_id' => auth()->user()->id,
                                         'product_id' => $productId,
@@ -177,9 +172,8 @@ class View extends Component
                             'status' => 200
                         ]);
                     } else {
-
                         if ($this->product->quantity > 0) {
-                            if ($this->product->quantity > $this->quantityCount) {
+                            if ($this->product->quantity >= $this->quantityCount) {
                                 Cart::create([
                                     'user_id' => auth()->user()->id,
                                     'product_id' => $productId,
@@ -233,6 +227,7 @@ class View extends Component
         return view('livewire.frontend.product.view', [
             'category' => $this->category,
             'product' => $this->product,
+            'comments' =>$this->product->comments()->latest()->paginate(5)
         ]);
     }
 }

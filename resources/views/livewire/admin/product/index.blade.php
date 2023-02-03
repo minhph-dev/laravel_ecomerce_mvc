@@ -42,12 +42,12 @@
                                     </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->selling_price }}</td>
-                                    <td>{{ $product->quantity }}</td>
+                                    <td class="text-center">{{ $product->quantity }}</td>
                                     <td>{{ $product->status == '1' ? 'Hidden' : 'Visible' }}</td>
                                     <td>
                                         <button wire:click="editProduct({{ $product->id }})"
-                                            class="btn btn-sm text-white btn-success me-2">Edit</button>
-                                        <button class="btn btn-sm text-white btn-danger"
+                                            class="btn btn-sm text-white btn-success me-2 mt-2">Edit</button>
+                                        <button class="btn btn-sm text-white btn-danger mt-2"
                                             wire:click="deleteProduct({{ $product->id }})" data-bs-toggle="modal"
                                             data-bs-target="#deleteProduct">Delete</button>
                                     </td>

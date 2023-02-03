@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 class SliderController extends Controller
 {
     public function index(){
-        $sliders = Slider::all();
+        $sliders = Slider::orderBy('id', 'ASC')->paginate(5);
         return view('admin.slider.index', compact('sliders'));
     }
     public function create(){

@@ -23,8 +23,7 @@
                         <h4>Change Password
                             <a href="{{ url('profile') }}" class="btn btn-warning float-right text-white">Back</a>
                         </h4>
-                        <div class="underline mb-4" style="background: #F7941D">
-                        </div>
+                        <div class="my-2" style="background: #F7941D; height: 3px;width:200px;"></div>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('change-password') }}" method="POST">

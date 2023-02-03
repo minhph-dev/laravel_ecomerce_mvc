@@ -12,7 +12,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('admin.category.index');
+        $categories = Category::orderBy('created_at', 'DESC')->paginate(5);
+        return view('admin.category.index', compact('categories'));
     }
     public function create()
     {
@@ -83,4 +84,14 @@ class CategoryController extends Controller
         $category->update();
         return redirect('admin/category')->with('message', 'Category Updated Successfully');
     }
+
+    public function destroy(int $userId){
+        $category = Category::findOrFail($userId);
+        $path = 'uploads/category/' . $category->image;
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        $category->delete();
+        return redirect('/admin/category')->with('message', 'Category Deleted Successfully');
+     }
 }

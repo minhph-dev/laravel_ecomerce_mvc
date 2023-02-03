@@ -43,7 +43,7 @@
                                         <a href="{{ url('admin/users/' . $user->id . '/edit') }}"
                                             class="btn text-white btn-sm btn-success me-2">Edit</a>
                                         <a href="{{ url('admin/users/' . $user->id . '/delete') }}"
-                                            onclick="return confirm('Are you sure, you want to delete this data ?');"\
+                                            onclick="return confirm('Are you sure, you want to delete this data ?');"
                                             class="btn text-white btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
@@ -54,7 +54,7 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div>
+                    <div class="mt-3 float-end">
                         {{$users->links()}}
                     </div>
                 </div>

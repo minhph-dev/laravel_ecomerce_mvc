@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Brands;
+use App\Models\Brand;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
@@ -194,7 +194,6 @@ class ProductComponent extends Component
         $this->product_id = $product->id;
         $this->category_id = $product->category_id;
         $this->name = $product->name;
-        $this->slug = $product->slug;
         $this->brand = $product->brand;
         $this->description = $product->description;
         $this->original_price = $product->original_price;
@@ -308,10 +307,10 @@ class ProductComponent extends Component
 
     public function render()
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(5);
+        $products = Product::orderBy('created_at', 'DESC')->paginate(5);
         $productEdit = $this->productEdit;
         $categories = Category::all();
-        $brands = Brands::all();
+        $brands = Brand::all();
         $colors = Color::where('status', '0')->get();
         return view(
             'livewire.admin.product.index',

@@ -151,14 +151,14 @@ class Index extends Component
                 $q->whereIn('brand', $this->brandInputs);
             })
             ->when($this->priceInput, function ($q) {
-                $q->when($this->priceInput == '20-50', function ($q2) {
-                    $q2->whereBetween('selling_price', [20, 50]);
+                $q->when($this->priceInput == '0-1000', function ($q2) {
+                    $q2->whereBetween('selling_price', [0, 1000]);
                 })
-                    ->when($this->priceInput == '50-100', function ($q3) {
-                        $q3->whereBetween('selling_price', [50, 100]);
+                    ->when($this->priceInput == '1000-2000', function ($q3) {
+                        $q3->whereBetween('selling_price', [1000, 2000]);
                     })
-                    ->when($this->priceInput == '100-250', function ($q4) {
-                        $q4->whereBetween('selling_price', [100, 250]);
+                    ->when($this->priceInput == '2000-', function ($q4) {
+                        $q4->whereBetween('selling_price', [2000, 10000]);
                     })
                     ->when($this->priceInput == 'low-to-hight', function ($q5) {
                         $q5->orderBy('selling_price', 'ASC');

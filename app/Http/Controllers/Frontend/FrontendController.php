@@ -14,6 +14,10 @@ class FrontendController extends Controller
         return view('frontend.index');
     }
 
+    public function sendmail(){
+        return view('frontend.users.invoice.mail-support');
+    }
+
     public function newArrivals()
     {
         return view('frontend.pages.new-arrival');
@@ -64,19 +68,15 @@ class FrontendController extends Controller
             return redirect()->back();
         }
     }
-    public function productViewApi(string $category_slug, string $product_slug)
+    public function productViewApi($id)
     {
-        $category = Category::where('slug', $category_slug)->first();
-        $product = $category->products()->where('slug', $product_slug)->where('status', '0')->first();
-        $productColors = $product->productColors()->get();
-       
+        $product = Product::findOrFail($id);
         $productImages = $product->productImages()->get();
         if ($product) {
             return response()->json([
                 'status' => 200,
                 'data' => [
                     'product' => $product,
-                    'productColors' => $productColors,
                     'productImages' => $productImages
                 ]
             ]);

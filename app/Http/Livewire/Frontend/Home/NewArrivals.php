@@ -11,6 +11,8 @@ use Livewire\Component;
 
 class NewArrivals extends Component
 {
+    protected $paginationTheme = 'bootstrap';
+
     public  $product, $productColorId = 1 ;
 
     public function addToWishList($productId)
@@ -133,7 +135,7 @@ class NewArrivals extends Component
 
     public function render()
     {
-        $newArrivalsProducts = Product::latest()->take(14)->get();
+        $newArrivalsProducts = Product::latest()->paginate(8);
         return view('livewire.frontend.home.new-arrivals', ['newArrivalsProducts' => $newArrivalsProducts]);
     }
 }

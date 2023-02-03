@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div>
+    {{-- <div>
         <!-- Start Contact -->
         <section id="contact-us" class="contact-us section">
             <div class="container">
@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group message">
-                                                <label>your message<span>*</span></label>
+                                                <label>Your message<span>*</span></label>
                                                 <textarea name="message" placeholder=""></textarea>
                                             </div>
                                         </div>
@@ -67,9 +67,9 @@
                                     <i class="fa fa-envelope-open"></i>
                                     <h4 class="title">Email:</h4>
                                     <ul>
-                                        <li><a href="mailto:info@yourwebsite.com">{{ $appSetting->email1 ?? 'email 1' }}</a>
+                                        <li><a href="mailto:info@yourwebsite.com">{{ $appSetting->email1 ?? 'Email 1' }}</a>
                                         </li>
-                                        <li><a href="mailto:info@yourwebsite.com">{{ $appSetting->email2 ?? 'email 2' }}</a>
+                                        <li><a href="mailto:info@yourwebsite.com">{{ $appSetting->email2 ?? 'Email 2' }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -116,6 +116,6 @@
             </div>
         </section>
         <!-- End Shop Newsletter -->
-    </div>
-    
+    </div> --}}
+    <livewire:frontend.home.contact />
 @endsection

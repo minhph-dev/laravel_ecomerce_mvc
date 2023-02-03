@@ -18,10 +18,10 @@
     </div>
     <!-- End Breadcrumbs -->
     <div class="container">
-        <section class="product-area shop-sidebar shop section">
+        <section class="product-area shop-sidebar shop section pt-2 pb-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-12">
+                    <div class="col-lg-3 col-md-4 col-12 mt-5">
                         <div class="shop-sidebar">
                             <!-- Single Widget -->
                             <div class="single-widget category">
@@ -63,22 +63,22 @@
                                     <li>
                                         <label class="checkbox-inline" for="2050">
                                             <input name="priceSort" id="2050" wire:model="priceInput"
-                                                type="radio" value="20-50">
-                                            $20 - $50
+                                                type="radio" value="0-1000">
+                                            $0 - $1000
                                         </label>
                                     </li>
                                     <li>
                                         <label class="checkbox-inline" for="50100">
                                             <input name="priceSort" id="50100" wire:model="priceInput"
-                                                type="radio" value="50-100">
-                                            $50 - $100
+                                                type="radio" value="1000-2000">
+                                            $1000 - $2000
                                         </label>
                                     </li>
                                     <li>
                                         <label class="checkbox-inline" for="100250">
                                             <input name="priceSort" id="100250" wire:model="priceInput"
-                                                type="radio" value="100-250">
-                                            $100 - $250
+                                                type="radio" value="2000-">
+                                            $2000 Release
                                         </label>
                                     </li>
                                 </ul>
@@ -103,8 +103,7 @@
                                             @endif
                                             <div class="button-head">
                                                 <div class="product-action">
-                                                    <a data-product-slug={{ $product->slug }}
-                                                        data-category-slug={{ $product->category->slug }}
+                                                    <a data-product-id={{ $product->id }}
                                                         class="btnQuickView" data-toggle="modal"
                                                         data-target="#quickViewModal" title="Quick View"><i
                                                             class="fa-regular fa-eye"></i><span>Quick
@@ -113,7 +112,8 @@
                                                         title="Wishlist"><i class="fa-regular fa-heart"></i><span>Add
                                                             to
                                                             Wishlist</span></a>
-                                                    <a title="Compare"><i class="fa-solid fa-code-compare"></i><span>Add
+                                                    <a title="Compare" ><i
+                                                            class="fa-solid fa-code-compare"></i><span>Add
                                                             to
                                                             Compare</span></a>
                                                 </div>
@@ -136,16 +136,14 @@
                                     </div>
                                 </div>
                             @empty
-                                <div class="p-2">
+                                <div class="p-2 single-product">
                                     <h4>No Products Available For {{ $category->name }}</h4>
                                 </div>
                             @endforelse
-
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
-
 </div>

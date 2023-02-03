@@ -8,12 +8,12 @@
                 <div class="alert alert-success">{{ session('message') }}</div>
             @endif
             @if ($errors->any())
-            <div class="alert alert-warning">
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            </div>
-        @endif
+                <div class="alert alert-warning">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h3> Add User

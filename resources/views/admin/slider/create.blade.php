@@ -5,6 +5,13 @@
             @if (session('message'))
                 <div class="alert alert-success">{{ session('message') }}</div>
             @endif
+            @if ($errors->any())
+                <div class="alert alert-warning">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h3>Add Slider
@@ -12,7 +19,7 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{url('admin/sliders/create')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('admin/sliders/create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="">Title</label>

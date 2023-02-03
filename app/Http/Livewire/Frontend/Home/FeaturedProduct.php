@@ -134,7 +134,7 @@ class FeaturedProduct extends Component
 
     public function render()
     {
-        $featuredProducts = Product::where('featured', '1')->latest()->get();
+        $featuredProducts = Product::where('featured', '1')->latest()->paginate(8);
         return view('livewire.frontend.home.featured-product', ['featuredProducts' => $featuredProducts]);
     }
 }

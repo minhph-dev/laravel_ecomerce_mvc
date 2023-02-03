@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         $wedsiteSetting = Setting::first();
-        $categories = Category::all();
         View::share('appSetting', $wedsiteSetting);
+        $categories = Category::all();
         View::share('categories', $categories);
     }
 }

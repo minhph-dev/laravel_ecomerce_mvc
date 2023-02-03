@@ -6,7 +6,7 @@
                 <div class="card-header">
                     <h4>Brands List
                         <a href="" class="btn btn-primary float-end text-white btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#addBrandModal">Add Brands</a>
+                            data-bs-target="#addBrandModal">Add Brand</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -24,7 +24,7 @@
                         <tbody>
                             @forelse ($brands as $brand)
                                 <tr>
-                                    <td>{{ $brand->id }}</td>
+                                    <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $brand->name }}</td>
                                     <td>
                                         @if ($brand->category)
@@ -51,7 +51,7 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div>
+                    <div class="float-end mt-3">
                         {{ $brands->links() }}
                     </div>
                 </div>
