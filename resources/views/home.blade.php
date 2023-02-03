@@ -17,7 +17,7 @@
                     <h4>{{ __('You are logged in!') }}</h4>
                 </div>
             </div>
-            <a href="/" class="btn btn-success mt-3 d-block text-white text-center">SHOP NOW</a>
+            <a href="/" class="btn btn-success mt-3 d-block text-white text-center">SHOP NOW .</a>
         </div>
     </div>
 </div>
