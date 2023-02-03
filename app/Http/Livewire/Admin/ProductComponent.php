@@ -162,8 +162,10 @@ class ProductComponent extends Component
                 $imageName = $image->hashName();
                 $manager = new ImageManager();
                 $image = $manager->make($image)->resize(300, 200);
-                $image->save('uploads/' . $imageName);
                 $imagePath = 'uploads/' . $imageName;
+                $image->save(storage_path('app/public/uploads/products/'.$imagePath.'/'.$imageName));
+                // $image->save('uploads/' . $imageName);
+                // storage_path('app/public/'.$path.'/'.$filename)
                 $product->productImages()->create([
                     'product_id' => $product->id,
                     'image' => $imagePath,
