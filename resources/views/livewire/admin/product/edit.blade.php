@@ -82,7 +82,7 @@
                                 @foreach ($imageEdit as $item)
                                     <span class="warpper-image">
                                         {{-- <img src="{{ asset($item['image']) }}" width="100px"> --}}
-                                        <img src="{{ asset('https://desolate-basin-32696.herokuapp.com/'$item['image']) }}" width="100px">
+                                        <img src="https://desolate-basin-32696.herokuapp.com/{{$item['image']}}" width="100px">
                                         <span class="btnDeleteImage" wire:click="deleteImage({{ $item['id'] }})"><i
                                                 class="fa-solid fa-xmark"></i></span>
 
