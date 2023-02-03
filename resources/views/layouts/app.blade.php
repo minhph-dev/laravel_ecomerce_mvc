@@ -54,7 +54,6 @@
     <link rel="stylesheet" href="/frontend/style.css">
     <link rel="stylesheet" href="/frontend/css/responsive.css">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 
