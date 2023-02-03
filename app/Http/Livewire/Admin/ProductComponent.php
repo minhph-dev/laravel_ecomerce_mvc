@@ -207,8 +207,8 @@ class ProductComponent extends Component
         $this->meta_description = $product->meta_description;
         $this->updateMode = true;
 
-        $productImages = $product->productImages()->get();
-        $this->imageEdit = json_decode($productImages, true);
+        $this->imageEdit =  $productImages = $product->productImages()->get();
+        // $this->imageEdit = json_decode($productImages, true);
     }
 
 
@@ -284,7 +284,6 @@ class ProductComponent extends Component
         $this->updateMode = false;
         session()->flash('message', 'Image Delete Successfully');
     }
-
 
     public function deleteProdColor(int $prod_color_id)
     {

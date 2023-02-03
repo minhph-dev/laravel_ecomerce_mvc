@@ -22,9 +22,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Category</th>
-                                <th class="text-center">Image</th>
                                 <th>Product</th>
                                 <th>Price</th>
+                                <th>Quantity</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -32,7 +32,7 @@
                         <tbody>
                             @forelse ($products as $product)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{$loop->index + 1}}</td>
                                     <td>
                                         @if ($product->category)
                                             {{ $product->category->name }}
@@ -40,11 +40,9 @@
                                             No Category
                                         @endif
                                     </td>
-                                    <td class="text-center">
-                                        <img  src="{{ asset($product->productImages['0']->image) }}" style="width:100px; object-fit: contain"/>
-                                    </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->selling_price }}</td>
+                                    <td class="text-center">{{ $product->quantity }}</td>
                                     <td>{{ $product->status == '1' ? 'Hidden' : 'Visible' }}</td>
                                     <td>
                                         <button wire:click="editProduct({{ $product->id }})"

@@ -81,14 +81,13 @@
                             @if ($imageEdit)
                                 @foreach ($imageEdit as $item)
                                     <span class="warpper-image">
-                                        <img src="{{ asset($item['image']) }}" width="100px">
+                                        <img src="{{ asset($item->image) }}" width="100px">
                                         <span class="btnDeleteImage" wire:click="deleteImage({{ $item['id'] }})"><i
                                                 class="fa-solid fa-xmark"></i></span>
 
                                     </span>
                                 @endforeach
                             @endif
-
 
                         </div>
                         <div class="tab-pane fade border p-3" id="seotag" role="tabpanel"
