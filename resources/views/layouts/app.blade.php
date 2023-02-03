@@ -54,6 +54,8 @@
     <link rel="stylesheet" href="/frontend/style.css">
     <link rel="stylesheet" href="/frontend/css/responsive.css">
 
+    <link rel="stylesheet" href="/css/app.css">
+
     @livewireStyles
 </head>
 
