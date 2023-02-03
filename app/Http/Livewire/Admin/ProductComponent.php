@@ -207,7 +207,7 @@ class ProductComponent extends Component
         $this->meta_description = $product->meta_description;
         $this->updateMode = true;
 
-        $this->imageEdit =  $productImages = $product->productImages()->get();
+        $this->imageEdit = $product->productImages()->get();
         // $this->imageEdit = json_decode($productImages, true);
     }
 
