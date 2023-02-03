@@ -163,7 +163,7 @@ class ProductComponent extends Component
                 $manager = new ImageManager();
                 $image = $manager->make($image)->resize(300, 200);
                 $imagePath = 'uploads/' . $imageName;
-                $image->save(storage_path('app/public/uploads/products/'.$imagePath.'/'.$imageName));
+                $image->save(storage_path('app/public/'.$imagePath.'/'.$imageName));
                 // $image->save('uploads/' . $imageName);
                 // storage_path('app/public/'.$path.'/'.$filename)
                 $product->productImages()->create([
