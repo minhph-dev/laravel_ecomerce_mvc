@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('image');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }
