@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="">Trending</label>
+                                        <label for="">Trending (Checked:Visible)</label>
                                         <input type="checkbox" wire:model.defer="trending">
                                         @error('trending')
                                             <small class="text-danger">{{ $message }}</small>
@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="">Featured</label>
+                                        <label for="">Featured (Checked:Visible)</label>
                                         <input type="checkbox" wire:model.defer="featured">
                                         @error('featured')
                                             <small class="text-danger">{{ $message }}</small>
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="">Status</label>
+                                        <label for="">Status (Cheked: Hidden)</label>
                                         <input type="checkbox" wire:model.defer="status">
                                         @error('status')
                                             <small class="text-danger">{{ $message }}</small>

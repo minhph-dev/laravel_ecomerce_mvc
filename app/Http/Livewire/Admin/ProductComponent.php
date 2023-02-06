@@ -208,9 +208,7 @@ class ProductComponent extends Component
         $this->updateMode = true;
 
         $this->imageEdit = $product->productImages()->get();
-        // $this->imageEdit = json_decode($productImages, true);
     }
-
 
     public function updateProduct()
     {

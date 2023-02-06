@@ -13,12 +13,12 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BrandSeeder::class,
             ColorSeeder::class,
+            SliderSeeder::class,
+            SettingSeeder::class,
             ProductSeeder::class,
             ProductImageSeeder::class,
             ProductColorSeeder::class,
             CommentProductSeeder::class,
-            SliderSeeder::class,
-            SettingSeeder::class,
         ]);
     }
 }

@@ -21,11 +21,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-// Guest
+//======================== Guest ===================
 Auth::routes();
 Route::get('login-google', [LoginController::class, 'redirectToGoogle']);
 Route::get('google-callback', [LoginController::class, 'handleGoogleCallback']);
-Route::get('thank-you', [FrontendController::class, 'thankyou']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::controller(FrontendController::class)->group(function () {
@@ -39,9 +38,10 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/contact-us', 'contact');
     Route::get('search', 'searchProducts');
     Route::get('sendmail', 'sendmail');
+    Route::get('thank-you', 'thankyou');
 });
  
-// User
+//=============== User =================
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index']);
     Route::get('/cart', [CartController::class, 'index']);
@@ -54,42 +54,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/change-password', [FrontendUserController::class, 'changePassword']);
 });
 
-
-// Admin
+//==================== Admin ====================
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
-
+    // Minh
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('/products', ProductComponent::class);
-    Route::get('/brands', BrandComponent::class);
-    Route::get('settings', [SettingController::class, 'index']);
-    Route::post('settings', [SettingController::class, 'store']);
-
-    Route::controller(SliderController::class)->group(function () {
-        Route::get('/sliders', 'index');
-        Route::get('/sliders/create', 'create');
-        Route::post('/sliders/create', 'store');
-        Route::get('/sliders/{slider}/edit', 'edit');
-        Route::put('/sliders/{slider}', 'update');
-        Route::get('/sliders/{slider}/delete', 'destroy');
-    });
-
-    Route::controller(CategoryController::class)->group(function () {
-        Route::get('/category', 'index');
-        Route::get('/category/create', 'create');
-        Route::post('/category', 'store');
-        Route::get('/category/{category}/edit', 'edit');
-        Route::put('/category/{category}', 'update');
-        Route::get('/category/{category}/delete', 'destroy');
-    });
-
-    Route::controller(ColorController::class)->group(function () {
-        Route::get('/colors', 'index');
-        Route::get('/colors/create', 'create');
-        Route::post('/colors/create', 'store');
-        Route::get('/colors/{color}/edit', 'edit');
-        Route::put('/colors/{color_id}', 'update');
-        Route::get('/colors/{color_id}/delete', 'destroy');
-    });
 
     Route::controller(AdminOrderController::class)->group(function () {
         Route::get('/orders', 'index');
@@ -100,6 +69,43 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/invoice/{orderId}/mail', 'mailInvoice');
     });
 
+    // Tuan
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/category', 'index');
+        Route::get('/category/create', 'create');
+        Route::post('/category', 'store');
+        Route::get('/category/{category}/edit', 'edit');
+        Route::put('/category/{category}', 'update');
+        Route::get('/category/{category}/delete', 'destroy');
+    });
+
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/settings', 'index');
+        Route::post('/settings', 'store');
+    });
+
+    //Uyên
+    Route::get('/brands', BrandComponent::class);
+    
+    Route::controller(ColorController::class)->group(function () {
+        Route::get('/colors', 'index');
+        Route::get('/colors/create', 'create');
+        Route::post('/colors/create', 'store');
+        Route::get('/colors/{color}/edit', 'edit');
+        Route::put('/colors/{color_id}', 'update');
+        Route::get('/colors/{color_id}/delete', 'destroy');
+    });
+
+    //Linh
+    Route::controller(SliderController::class)->group(function () {
+        Route::get('/sliders', 'index');
+        Route::get('/sliders/create', 'create');
+        Route::post('/sliders/create', 'store');
+        Route::get('/sliders/{slider}/edit', 'edit');
+        Route::put('/sliders/{slider}', 'update');
+        Route::get('/sliders/{slider}/delete', 'destroy');
+    });
+
     Route::controller(UserController::class)->group(function () {
         Route::get('/users', 'index');
         Route::get('/users/create', 'create');
@@ -108,4 +114,5 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::put('/users/{user_id}', 'update');
         Route::get('/users/{user_id}/delete', 'destroy');
     });
+    
 });

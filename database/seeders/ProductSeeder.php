@@ -382,7 +382,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '3',
                 'name' => 'Máy tính bảng Masstel Tab 10A  ',
-                'slug' => ' May-Tinh-Bang-Masstel-Tab-10A  ',
+                'slug' => ' May-Tinh-Bang-Masstel-Tab-10A',
                 'brand' => '12',
                 'description' => 'Máy tính bảng Masstel Tab 10A sở hữu màn hình 10.1 inch, tỉ lệ 16:10 tối ưu cho mọi hoạt động học tập hay giải trí, có độ phân giải 1280 x 800 pixels với 16.7 triệu màu, công nghệ IPS cho màu sắc chính xác, độ sáng cao và độ tương phản tốt để bạn có thể tha hồ học tập, làm việc hay xem phim giải trí.',
                 'original_price' => 1350,
@@ -399,7 +399,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '3',
                 'name' => 'Máy tính bảng Masstel Tab 10S   ',
-                'slug' => ' May-Tinh-Bang-Masstel-Tab-10S  ',
+                'slug' => 'May-Tinh-Bang-Masstel-Tab-10S',
                 'brand' => '12',
                 'description' => 'Máy tính bảng Masstel Tab 10S  sở hữu màn hình 10.1 inch, tỉ lệ 16:10 tối ưu cho mọi hoạt động học tập hay giải trí, có độ phân giải 1280 x 800 pixels với 16.7 triệu màu, công nghệ IPS cho màu sắc chính xác, độ sáng cao và độ tương phản tốt để bạn có thể tha hồ học tập, làm việc hay xem phim giải trí.',
                 'original_price' => 1250,
@@ -416,7 +416,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '4',
                 'name' => ' Apple Watch Ultra LTE 49mm    ',
-                'slug' => ' Đong-ho-thong-minh-Apple-Watch-Ultra-LTE-49mm   ',
+                'slug' => ' Đong-ho-thong-minh-Apple-Watch-Ultra-LTE-49mm',
                 'brand' => '13',
                 'description' => 'Đây cũng là phiên bản có màn hình sáng nhất trong tất cả Apple Watch với độ sáng lên đến 2000 nits, nút xoay Digital Crown cũng được chế tác to và bền hơn, giúp người dùng thao tác dễ dàng hơn trong mọi hoàn cảnh. ',
                 'original_price' => 1550,
@@ -433,7 +433,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '4',
                 'name' => 'Apple Watch Series 7 GPS 45mm   ',
-                'slug' => ' Apple-Watch-Series-7-GPS45mm  ',
+                'slug' => ' Apple-Watch-Series-7-GPS45mm',
                 'brand' => '13',
                 'description' => 'Apple trang bị cho dòng S7 khung viền bằng nhôm tái chế 100% giúp bảo vệ môi trường. Dây đeo silicone dẻo dai, không thấm nước mang lại cảm giác thoải mái, dễ chịu cho người dùng đặc biệt là những lúc tay đổ nhiều mồ hôi khi luyện tập thể thao.',
                 'original_price' => 1250,
@@ -450,7 +450,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '4',
                 'name' => 'Samsung Galaxy Watch5 LTE 40mm   ',
-                'slug' => ' Samsung-Galaxy-Watch5-LTE-40mm  ',
+                'slug' => ' Samsung-Galaxy-Watch5-LTE-40mm',
                 'brand' => '14',
                 'description' => 'sở hữu mặt tròn quen thuộc được thiết kế tạo cảm giác liền mạch với khung viền hợp kim nhôm bền bỉ. Chất liệu kính cường lực quen thuộc ở các dòng Galaxy Watch đã được nâng cấp thành mặt kính Sapphire cao cấp giúp tăng độ cứng cho màn hình, giảm tình trạng trầy xước, nứt vỡ trong quá trình sử dụng.',
                 'original_price' => 1120,
@@ -466,8 +466,8 @@ class ProductSeeder extends Seeder
 
             [
                 'category_id' => '4',
-                'name' => 'Samsung Galaxy Watch5 LTE 44mm   ',
-                'slug' => ' Samsung-Galaxy-Watch5-LTE-44mm  ',
+                'name' => 'Samsung Galaxy Watch5 LTE 44mm',
+                'slug' => 'Samsung-Galaxy-Watch5-LTE-44mm',
                 'brand' => '14',
                 'description' => 'Màn hình 1.2 inch có độ phân giải 396 x 396 pixels, mật độ điểm ảnh 330 ppi mang đến độ chi tiết cao. Công nghệ màn hình Super AMOLED nổi tiếng của nhà Samsung mang đến màu sắc sống động, nịnh mắt cùng khả năng hiển thị sắc nét.',
                 'original_price' => 1020,
@@ -483,8 +483,8 @@ class ProductSeeder extends Seeder
             //smartwatch(category=>4)->Amazfit(brand=15)
             [
                 'category_id' => '4',
-                'name' => 'Đồng hồ thông minh Amazfit GTR 3 45.8mm   ',
-                'slug' => ' Đong-ho-thong-minh-Amazfit-GTR-3-45.8mm ',
+                'name' => 'Đồng hồ thông minh Amazfit GTR 3 45.8mm',
+                'slug' => 'Đong-ho-thong-minh-Amazfit-GTR-3-45.8mm',
                 'brand' => '15',
                 'description' => 'Amazfit GTR 3 dùng mặt đồng hồ hình tròn vừa cổ điển vừa hiện đại, mang đến vẻ ngoài thanh lịch phù hợp với nhiều phong cách. Mặt kính cường lực kết hợp cùng khung viền hợp kim nhôm mang đến độ bền cao, hạn chế hư hỏng khi va chạm trong quá trình sử dụng. ',
                 'original_price' => 1060,
@@ -501,7 +501,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '4',
                 'name' => 'Đồng hồ thông minh Amazfit GTS 4 mini 41.8mm  ',
-                'slug' => ' Đong-ho-thong-minh-Amazfit-GTS 4 mini 41.8mm  ',
+                'slug' => 'Đong-ho-thong-minh-Amazfit-GTS-4-mini-41.8mm',
                 'brand' => '15',
                 'description' => 'Sở hữu thiết kế thời thượng, đậm chất xu hướng với mặt đồng hồ hình chữ nhật bo cong nhẹ 4 góc. Khung viền hợp kim nhôm kết hợp mặt kính cường lực có độ hoàn thiện cao mang lại tổng thể hài hoà, cao cấp cho chiếc đồng hồ..',
                 'original_price' => 1220,
@@ -518,7 +518,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '4',
                 'name' => 'Đồng hồ thông minh Garmin Forerunner 955 46.5mm  ',
-                'slug' => ' Đong-ho-thong-minh-Garmin Forerunner 955 46.5mm  ',
+                'slug' => 'Đong-ho-thong-minh-Garmin-Forerunner-955-46.5mm',
                 'brand' => '16',
                 'description' => 'có thiết kế mặt thanh thoát hơn, phần khung cũng được chế tác lại cho cảm giác đầy đặn, cứng cáp hơn thế hệ tiền nhiệm. Cạnh phải với những đường sọc đã được thay thế bằng dòng chữ Forerunner dập chìm ấn tượng. Dây đeo silicone mềm mại, thoáng mồ hôi cho cảm giác thoải mái trên cổ tay cả ngày dài hoạt động.',
                 'original_price' => 1420,
@@ -535,7 +535,7 @@ class ProductSeeder extends Seeder
             [
                 'category_id' => '4',
                 'name' => 'Đồng hồ thông minh Garmin Fenix 7 Sapphire 47mm  ',
-                'slug' => ' Đong-ho-thong-minh-Garmin Fenix 7 Sapphire 47mm ',
+                'slug' => 'Đong-ho-thong-minh-Garmin-Fenix-7-Sapphire-47mm',
                 'brand' => '16',
                 'description' => 'Đồng hồ thông minh Garmin nổi bật với kiểu dáng thể thao hoàn toàn mới kết hợp cùng màn hình 1.3 inch và có kích thước mặt đến 47 mm. Bên cạnh đó, sản phẩm còn đạt độ bền tiêu chuẩn quân đội của Hoa Kỳ về khả năng chống sốc, chống nước ở độ sâu 100 mét.',
                 'original_price' => 1420,
@@ -548,9 +548,6 @@ class ProductSeeder extends Seeder
                 'meta_keyword' => 'Đồng hồ thông minh Garmin Fenix 7 Sapphire 47mm ',
                 'meta_description' => 'Đồng hồ thông minh Garmin Fenix 7 Sapphire 47mm '
             ],
-
-
-           
         ];
 
         foreach ($products as $key => $value) {
