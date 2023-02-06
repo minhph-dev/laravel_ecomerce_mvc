@@ -12,6 +12,7 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
+                'id' =>'1',
                 'name' => 'Mobile',
                 'slug' => 'mobile',
                 'description' => 'This is desc mobile category',
@@ -21,6 +22,7 @@ class CategorySeeder extends Seeder
                 'meta_description' => 'mobile',
             ], 
             [
+                'id' =>'2',
                 'name' => 'Laptop',
                 'slug' => 'laptop',
                 'description' => 'This is desc laptop category',
@@ -30,6 +32,7 @@ class CategorySeeder extends Seeder
                 'meta_description' => 'mobile',
             ],
             [
+                'id' =>'3',
                 'name' => 'Tablet',
                 'slug' => 'tablet',
                 'description' => 'This is desc tablet category',
@@ -39,6 +42,7 @@ class CategorySeeder extends Seeder
                 'meta_description' => 'tablet',
             ],
             [
+                'id' =>'4',
                 'name' => 'Smart Watch',
                 'slug' => 'smart-watch',
                 'description' => 'This is desc Smart Watch category',

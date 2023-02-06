@@ -10,11 +10,11 @@ return new class extends Migration
     {
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->string('slug');
             $table->tinyInteger('status')->default('0');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
