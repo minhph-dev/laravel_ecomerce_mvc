@@ -75,10 +75,10 @@
                                                     @endif
                                                 @endif
                                             </td>
-                                            <td width="10%">${{ $orderItem->price }}</td>
+                                            <td width="10%">$ {{ $orderItem->price }}</td>
                                             <td width="10%">{{ $orderItem->quantity }}</td>
                                             <td width="10%" class="fw-bold">
-                                                {{ $orderItem->quantity * $orderItem->price }}
+                                                $ {{ $orderItem->quantity * $orderItem->price }}
                                             </td>
                                             @php
                                                 $totalPrice += $orderItem->quantity * $orderItem->price;
@@ -87,7 +87,7 @@
                                     @endforeach
                                     <tr>
                                         <td colspan="5"><strong>Total Amount: </strong></td>
-                                        <td colspan="1"><strong>${{ $totalPrice }}</strong></td>
+                                        <td colspan="1"><strong>$ {{ $totalPrice }}</strong></td>
                                     </tr>
                                 </tbody>
                             </table>

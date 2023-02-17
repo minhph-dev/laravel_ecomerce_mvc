@@ -33,7 +33,7 @@
                         <a href="{{ url('admin/orders') }}" class="text-white">View</a>
                     </div>
                 </div>
-                <div class="col-md-3"> 
+                <div class="col-md-3">
                     <div class="card car-body p-3 bg-danger text-white mb-3">
                         <label for="">Year Orders</label>
                         <h1>{{ $thisYearOrder }}</h1>
@@ -92,9 +92,37 @@
                 </div>
                 <hr>
             </div>
-
-
-
         </div>
     </div>
+
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load("current", {
+                packages: ["corechart"]
+            });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['Order Completed', {{ $orderComplete }}],
+                    ['Order Canceled', {{ $orderCancel }}],
+                    ['Order Progress', {{ $orderProgress }}],
+                ]);
+
+                var options = {
+                    title: 'Total Orders',
+                    is3D: true,
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                chart.draw(data, options);
+            }
+        </script>
+    </head>
+
+    <body>
+        <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
+    </body>
 @endsection

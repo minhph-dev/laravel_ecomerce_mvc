@@ -31,6 +31,10 @@ class DashboardController extends Controller
         $thisMonthOrder = Order::whereMonth('created_at', $thisMonth)->count();
         $thisYearOrder = Order::whereYear('created_at', $thisYear)->count();
 
+        $orderProgress = Order::where('status_message', 'in progress')->count();
+        $orderCancel = Order::where('status_message', 'cancelled')->count();
+        $orderComplete = Order::where('status_message', 'complete')->count();
+
         return view('admin.dashboard', compact(
             'totalProducts',
             'totalCategories',
@@ -41,7 +45,10 @@ class DashboardController extends Controller
             'totalOrder',
             'todayOrder',
             'thisMonthOrder',
-            'thisYearOrder'
+            'thisYearOrder',
+            'orderProgress',
+            'orderCancel',
+            'orderComplete'
         ));
     }
 }

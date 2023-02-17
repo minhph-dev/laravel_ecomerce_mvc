@@ -7,16 +7,21 @@ use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Orderitem;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
+use PhpParser\Node\Stmt\Foreach_;
 
 class ProductComponent extends Component
 {
     use WithFileUploads;
+    use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
     public $category_id,
@@ -53,7 +58,7 @@ class ProductComponent extends Component
             ],
             'name' => [
                 'required',
-                'string'
+                'string',
             ],
             'brand' => [
                 'required',
@@ -131,9 +136,15 @@ class ProductComponent extends Component
         $this->resetInput();
     }
 
+    public function editMode()
+    {
+        $this->resetInput();
+    }
+
     public function createMode()
     {
         $this->createMode = true;
+        $this->resetInput();
     }
 
     public function storeProduct()
@@ -279,7 +290,7 @@ class ProductComponent extends Component
             File::delete($productImage->image);
         }
         $productImage->delete();
-        $this->updateMode = false;
+        $this->imageEdit = $this->productEdit->productImages()->get();
         session()->flash('message', 'Image Delete Successfully');
     }
 
@@ -297,8 +308,14 @@ class ProductComponent extends Component
 
     public function destroyProduct()
     {
-        Product::findOrFail($this->product_id)->delete();
-        session()->flash('message', 'Product Deleted Successfully');
+        $orderItems = Orderitem::all()->toArray();
+        $orderItemProductIds = Arr::pluck($orderItems, 'product_id');
+        if (in_array($this->product_id, $orderItemProductIds)) {
+            session()->flash('message', 'Products on order cannot be deleted');
+        } else {
+            Product::findOrFail($this->product_id)->delete();
+            session()->flash('message', 'Product Deleted Successfully');
+        }
         $this->dispatchBrowserEvent('close-modal');
     }
 
@@ -309,9 +326,10 @@ class ProductComponent extends Component
         $categories = Category::all();
         $brands = Brand::all();
         $colors = Color::where('status', '0')->get();
+        $orderItems = Orderitem::all();
         return view(
             'livewire.admin.product.index',
-            ['categories' => $categories, 'products' => $products, 'brands' => $brands, 'colors' => $colors, 'productEdit' => $productEdit]
+            ['categories' => $categories, 'products' => $products, 'brands' => $brands, 'colors' => $colors, 'productEdit' => $productEdit, 'orderItems' => $orderItems]
         )->extends('layouts.admin')
             ->section('content');
     }

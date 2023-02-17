@@ -16,7 +16,7 @@ class BrandComponent extends Component
     public $name, $slug, $status, $brand_id, $category_id;
     public function rules(){
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|unique:brands',
             'slug' => 'required|string',
             'category_id' => 'required|integer',
             'status' => 'nullable',

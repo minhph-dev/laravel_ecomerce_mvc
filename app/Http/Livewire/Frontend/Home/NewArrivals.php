@@ -8,9 +8,11 @@ use App\Models\ProductColor;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class NewArrivals extends Component
 {
+    use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
     public  $product, $productColorId = 1 ;

@@ -30,7 +30,8 @@ class ProductFormRequest extends FormRequest
             ],
             'name' => [
                 'required',
-                'string'
+                'string',
+                'unique:products'
             ],
             'slug' => [
                 'required',

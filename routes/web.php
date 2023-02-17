@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\UserController as FrontendUserController;
@@ -52,6 +53,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile', [FrontendUserController::class, 'updateUserDetail']);
     Route::get('/change-password', [FrontendUserController::class, 'passwordCreate']);
     Route::post('/change-password', [FrontendUserController::class, 'changePassword']);
+    Route::controller(CompareController::class)->group(function() {
+        Route::get('/addCompare/{productId}' , 'addToCompare');
+        Route::get('/gotoCompare' , 'gotoCompare');
+        Route::get('/deleteCompare/{compareId}' , 'deleteFromCompare');
+        Route::get('/compareReturn' , 'compareReturn');
+    });
 });
 
 //==================== Admin ====================

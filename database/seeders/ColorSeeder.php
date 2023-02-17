@@ -36,6 +36,11 @@ class ColorSeeder extends Seeder
                 'code' => '#D5D1E0',
                 'status' => 0,
             ], 
+            [
+                'name' => 'blue',
+                'code' => '#0000FF',
+                'status' => 0,
+            ], 
         ];
 
         foreach ($colors as $key => $value) {

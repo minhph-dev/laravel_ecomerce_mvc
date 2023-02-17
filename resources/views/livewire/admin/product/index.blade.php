@@ -32,7 +32,7 @@
                         <tbody>
                             @forelse ($products as $product)
                                 <tr>
-                                    <td>{{$loop->index + 1}}</td>
+                                    <td>{{ $loop->index + 1 }}</td>
                                     <td>
                                         @if ($product->category)
                                             {{ $product->category->name }}
@@ -41,7 +41,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $product->name }}</td>
-                                    <td>{{ $product->selling_price }}</td>
+                                    <td>{{ $product->selling_price }} $</td>
                                     <td class="text-center">{{ $product->quantity }}</td>
                                     <td>{{ $product->status == '1' ? 'Hidden' : 'Visible' }}</td>
                                     <td>
@@ -59,6 +59,7 @@
                             @endforelse
                         </tbody>
                     </table>
+
                     <div class="float-end mt-3">
                         {{ $products->links() }}
                     </div>
