@@ -142,11 +142,10 @@ class CheckoutShow extends Component
 
     public function render()
     {
-
         $phone = $this->phone;
         $pincode = $this->pincode;
         $address = $this->address;
-        
+
         $this->fullname = auth()->user()->name;
         $this->email = auth()->user()->email;
 
