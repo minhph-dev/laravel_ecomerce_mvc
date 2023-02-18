@@ -123,6 +123,11 @@
     <!-- Active JS -->
     <script src="/frontend/js/active.js"></script>
 
+    {{-- Zalo Chatbox --}}
+    <div class="zalo-chat-widget" data-oaid="1927122016347543978" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="300" data-height="300"></div>
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+
+
     <!-- Modal -->
     <div class="modal fade" id="quickViewModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

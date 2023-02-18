@@ -1,4 +1,47 @@
 <div>
+    <style>
+        /** rating **/
+        div.stars {
+            display: inline-block;
+        }
+
+        input.star {
+            display: none;
+        }
+
+        label.star {
+            float: right;
+            padding: 10px;
+            font-size: 20px;
+            color:
+                #444;
+            transition: all .2s;
+        }
+
+        input.star:checked~label.star:before {
+            content: '\f005';
+            color:
+                #e74c3c;
+            transition: all .25s;
+        }
+
+        input.star-5:checked~label.star:before {
+            color:
+                #e74c3c;
+        }
+
+        input.star-1:checked~label.star:before {
+            color:
+                #e74c3c;
+        }
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
+        }
+
+        /** end rating **/
+    </style>
     {{-- Start Product Detail --}}
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
@@ -34,6 +77,19 @@
                         <h4 style="font-weight: 600">
                             {{ $product->name }}
                         </h4>
+                        <div class="col-sm-6 d-flex align-items-center me-0" style="flex-direction: row-reverse">
+                            <p class="mx-3 text-success">{{ round($totalStar, 2) }}</p>
+                            <input class="star star-5"type="radio" {{ ceil($totalStar) == 5 ? 'checked' : '' }} />
+                            <label class="star star-5"></label>
+                            <input class="star star-4" type="radio" {{ ceil($totalStar) == 4 ? 'checked' : '' }} />
+                            <label class="star star-4"></label>
+                            <input class="star star-3" type="radio" {{ ceil($totalStar) == 3 ? 'checked' : '' }} />
+                            <label class="star star-3"></label>
+                            <input class="star star-2" type="radio" {{ ceil($totalStar) == 2 ? 'checked' : '' }} />
+                            <label class="star star-2"></label>
+                            <input class="star star-1" type="radio" {{ ceil($totalStar) == 1 ? 'checked' : '' }} />
+                            <label class="star star-1"></label>
+                        </div>
                         <div class="d-flex my-3">
                             <h5 style="font-weight: 600">${{ $product->selling_price }}</h5>
                             <span class="original-price mx-2"
@@ -104,7 +160,8 @@
 
     {{-- Start Comment --}}
     <div class="container mb-5">
-        <h5 class="my-3" style="font-weight: 600;border-left:3px solid #F7941D; padding-left:3px">Comments</h5>
+        <h5 class="my-3" style="font-weight: 600;border-left:3px solid #F7941D; padding-left:3px">Rating Product :
+            {{ $countComment }}</h5>
         @forelse ($comments as $comment)
             <div class="row p-4">
                 <div style="width:5%">
@@ -117,6 +174,18 @@
                         <div class="text-xs text-gray-500 mx-2 font-semibold" style="font-size: 12px">
                             {{ $comment->created_at->diffForHumans() }}</div>
                     </div>
+                    <div class="col-sm-3">
+                        <input class="star star-5"type="radio" {{ $comment->star == 5 ? 'checked' : '' }} />
+                        <label class="star star-5"></label>
+                        <input class="star star-4" type="radio" {{ $comment->star == 4 ? 'checked' : '' }} />
+                        <label class="star star-4"></label>
+                        <input class="star star-3" type="radio" {{ $comment->star == 3 ? 'checked' : '' }} />
+                        <label class="star star-3"></label>
+                        <input class="star star-2" type="radio" {{ $comment->star == 2 ? 'checked' : '' }} />
+                        <label class="star star-2"></label>
+                        <input class="star star-1" type="radio" {{ $comment->star == 1 ? 'checked' : '' }} />
+                        <label class="star star-1"></label>
+                    </div>
                     <p class="text-gray-800">{{ $comment->comment }}</p>
                     @if ($comment->image)
                         <img src="{{ asset($comment->image) }}" width="100px" />
@@ -126,7 +195,7 @@
         @empty
             <p>There are no reviews yet !!</p>
         @endforelse
-            {{$comments->links()}}
+        {{ $comments->links() }}
         @error('newComment')
             <span class="text-red-500 text-xs">{{ $message }}</span>
         @enderror
@@ -138,9 +207,27 @@
             @endif
         </div> --}}
 
-        <h5 class="my-3" style="font-weight: 600;border-left:3px solid #F7941D; padding-left:3px">Leave A Comment
+        <h5 class="my-3" style="font-weight: 600;border-left:3px solid #F7941D; padding-left:3px">Rating Product
         </h5>
-        <form wire:submit.prevent="addComment({{ $product->id }})" class="d-flex flex-column my-3 rounded border p-4">
+        <form wire:submit.prevent="addComment({{ $product->id }})"
+            class="d-flex flex-column my-3 rounded border p-4">
+            <div class="col-sm-3">
+                <input class="star star-5" wire:model.defer="star" value="5" id="star-5"
+                    type="radio" />
+                <label class="star star-5" for="star-5"></label>
+                <input class="star star-4" wire:model.defer="star" value="4" id="star-4"
+                    type="radio" />
+                <label class="star star-4" for="star-4"></label>
+                <input class="star star-3" wire:model.defer="star" value="3" id="star-3"
+                    type="radio" />
+                <label class="star star-3" for="star-3"></label>
+                <input class="star star-2" wire:model.defer="star" value="2" id="star-2"
+                    type="radio" />
+                <label class="star star-2" for="star-2"></label>
+                <input class="star star-1" wire:model.defer="star" value="1" id="star-1"
+                    type="radio" />
+                <label class="star star-1" for="star-1"></label>
+            </div>
             <div class="form-group">
                 @if ($photo)
                     <img src="{{ $photo->temporaryUrl() }}" width="50px">

@@ -34,10 +34,6 @@
                                                                   title="Wishlist"><i
                                                                       class="fa-regular fa-heart"></i><span>Add to
                                                                       Wishlist</span></a>
-                                                              <a title="Compare"><i
-                                                                      class="fa-solid fa-code-compare"></i><span>Add
-                                                                      to
-                                                                      Compare</span></a>
                                                           </div>
                                                           <div class="product-action-2">
                                                               <a title="Add to cart"

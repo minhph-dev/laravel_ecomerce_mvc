@@ -3,7 +3,7 @@
     <div class="breadcrumbs">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <div class="bread-inner">
                         <ul class="bread-list">
                             <li><a href="/">Home<i class="fa-solid fa-arrow-right"></i></a></li>
@@ -12,6 +12,17 @@
                             <li class="active"><a href="">{{ $category->name }}</a></li>
                         </ul>
                     </div>
+                </div>
+                <div class="col-6 float">
+                    <h5><i class="fa-solid fa-code-compare"></i><a href="{{ url('/gotoCompare') }}"> - Go to
+                            Compare Page</a></h5>
+                    <br>
+                    @if (session('message'))
+                        <div class="alert alert-success">{{ session('message') }}</div>
+                    @endif
+                    @if (session('alert'))
+                        <div class="alert alert-danger">{{ session('alert') }}</div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -103,18 +114,17 @@
                                             @endif
                                             <div class="button-head">
                                                 <div class="product-action">
-                                                    <a data-product-id={{ $product->id }}
-                                                        class="btnQuickView" data-toggle="modal"
-                                                        data-target="#quickViewModal" title="Quick View"><i
-                                                            class="fa-regular fa-eye"></i><span>Quick
+                                                    <a data-product-id={{ $product->id }} class="btnQuickView"
+                                                        data-toggle="modal" data-target="#quickViewModal"
+                                                        title="Quick View"><i class="fa-regular fa-eye"></i><span>Quick
                                                             Shop</span></a>
                                                     <a wire:click="addToWishList({{ $product->id }})"
                                                         title="Wishlist"><i class="fa-regular fa-heart"></i><span>Add
                                                             to
                                                             Wishlist</span></a>
-                                                    <a title="Compare" ><i
-                                                            class="fa-solid fa-code-compare"></i><span>Add
-                                                            to
+                                                    <a href="{{ url('/addCompare', [$product->id]) }}"
+                                                        title="Compare"><i
+                                                            class="fa-solid fa-code-compare"></i><span>Add to
                                                             Compare</span></a>
                                                 </div>
                                                 <div class="product-action-2">

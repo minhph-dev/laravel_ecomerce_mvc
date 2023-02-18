@@ -6,33 +6,39 @@ use App\Models\Cart;
 use App\Models\Comment;
 use Livewire\Component;
 use App\Models\Wishlist;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class View extends Component
 {
-    public $category, $product, $prodColorSelectedQuantity, $quantityCount = 1, $productColor='0', $productColorId, $comment, $photo;
     use WithFileUploads;
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    public $category, $product, $prodColorSelectedQuantity, $quantityCount = 1, $productColor = '0', $productColorId, $comment, $photo, $star, $totalStar;
 
     public function addComment(int $productId)
     {
         if (Auth::check()) {
             $this->validate([
                 'comment' => 'required',
-                'photo' => 'max:1024', 
+                'star'=>'required',
+                'photo' => 'max:1024',
             ]);
             $newComment = Comment::create([
-                'comment' =>$this->comment,
-                'image' =>$this->storeImage(),
+                'comment' => $this->comment,
+                'star' => $this->star,
+                'image' => $this->storeImage(),
                 'product_id' => $productId,
                 'user_id' => auth()->user()->id
             ]);
             $this->product->comments->push($newComment);
-            session()->flash('message','Comment Added Successfully');
+            session()->flash('message', 'Comment Added Successfully');
             $this->photo = '';
             $this->comment = '';
-        }else {
+        } else {
             session()->flash('message', 'Please login to continue');
             $this->dispatchBrowserEvent('message', [
                 'text' => 'Please Login to continue',
@@ -50,9 +56,9 @@ class View extends Component
         }
         $imageName = $this->photo->hashName();
         $manager = new ImageManager();
-        $image = $manager->make($this->photo)->resize(300,200);
-        $image ->save('uploads/'.$imageName);
-        $imagePath = 'uploads/'.$imageName;
+        $image = $manager->make($this->photo)->resize(300, 200);
+        $image->save('uploads/' . $imageName);
+        $imagePath = 'uploads/' . $imageName;
         return $imagePath;
     }
 
@@ -115,7 +121,7 @@ class View extends Component
         if (Auth::check()) {
             if ($this->product->where('id', $productId)->where('status', '0')->exists()) {
                 if ($this->product->productColors()->count() > 0) {
-                    if ($this->prodColorSelectedQuantity!='') {
+                    if ($this->prodColorSelectedQuantity != '') {
                         if (Cart::where('user_id', auth()->user()->id)
                             ->where('product_id', $productId)
                             ->where('product_color_id', $this->productColorId)
@@ -224,10 +230,20 @@ class View extends Component
     }
     public function render()
     {
+        $comments = $this->product->comments()->get()->toArray();
+        $stars = Arr::pluck($comments, 'star');
+        $countComment = Comment::where('product_id', $this->product->id)->count();
+        if ($countComment > 0) {
+            $this->totalStar = array_sum($stars) / $countComment;
+        }else{
+            $this->totalStar = 5;
+        }
         return view('livewire.frontend.product.view', [
             'category' => $this->category,
             'product' => $this->product,
-            'comments' =>$this->product->comments()->latest()->paginate(5)
+            'comments' => $this->product->comments()->latest()->paginate(5),
+            'totalStar' => $this->totalStar,
+            'countComment' => $countComment
         ]);
     }
 }

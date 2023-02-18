@@ -38,7 +38,7 @@
 <body>
     <div class="container mt-5 mx-auto">
         <div class="card-header" style="background: #7859DF">
-            <h2 class="text-center text-white">Support Message</h2>
+            <h2 class="text-center text-white">Support message</h2>
         </div>
         <table class="table table-bordered" border="1">
             <tr>

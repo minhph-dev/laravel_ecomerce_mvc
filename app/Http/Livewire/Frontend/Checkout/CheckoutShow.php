@@ -22,55 +22,82 @@ class CheckoutShow extends Component
         'transactionEmit' => 'paidOnlineOrder'
     ];
 
-    public function paidOnlineOrder($value){
+    public function rules()
+    {
+        return [
+            'fullname' => 'required|string|max:121',
+            'email' => 'required|email|max:121',
+            'phone' => 'required|digits:10',
+            'pincode' => 'required|digits:6',
+            'address' => 'required|string|max:500',
+        ];
+    }
+
+    //Payment Paypal
+    public function paidOnlineOrder($value)
+    {
         $this->payment_id = $value;
         $this->payment_mode = 'Paid by Paypal';
-        
-        $codOrder = $this->placeOrder();
-        if($codOrder){
+
+        $placeOrder = $this->placeOrder();
+        if ($placeOrder) {
 
             Cart::where('user_id', auth()->user()->id)->delete();
             try {
-                $order = Order::findOrFail($codOrder->id);
+                $order = Order::findOrFail($placeOrder->id);
                 Mail::to("$order->email")->send(new PlaceOrderMailable($order));
             } catch (\Exception $e) {
             }
             session()->flash('message', 'Order Placed Successfully');
             $this->dispatchBrowserEvent('message', [
-                'text' =>'Order Placed Successfully',
-                'type' =>'success',
-                'status' =>200
+                'text' => 'Order Placed Successfully',
+                'type' => 'success',
+                'status' => 200
             ]);
             return redirect()->to('thank-you');
-
-        }else{
+        } else {
             $this->dispatchBrowserEvent('message', [
-                'text' =>'Something Went Wrong',
-                'type' =>'error',
-                'status' =>500
+                'text' => 'Something Went Wrong',
+                'type' => 'error',
+                'status' => 500
             ]);
         }
     }
 
-    public function validationForAll(){
-        $this->validate();
+    //Payment COD
+    public function codOrder()
+    {
+        $this->payment_mode = 'Cash on Delivery';
+        $placeOrder = $this->placeOrder();
+        if ($placeOrder) {
+            Cart::where('user_id', auth()->user()->id)->delete();
+            try {
+                $order = Order::findOrFail($placeOrder->id);
+                Mail::to("$order->email")->send(new PlaceOrderMailable($order));
+            } catch (\Exception $e) {
+            }
+            session()->flash('message', 'Order Placed Successfully');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Order Placed Successfully',
+                'type' => 'success',
+                'status' => 200
+            ]);
+            return redirect()->to('thank-you');
+        } else {
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Something Went Wrong',
+                'type' => 'error',
+                'status' => 500
+            ]);
+        }
     }
 
-    public function rules(){
-        return [
-            'fullname' =>'required|string|max:121',
-            'email' =>'required|email|max:121',
-            'phone' =>'required|digits:10',
-            'pincode' =>'required|digits:6',
-            'address' =>'required|string|max:500',
-        ];
-    }
-
-    public function placeOrder(){
+    public function placeOrder()
+    {
         $this->validate();
         $order = Order::create([
-            'user_id' =>auth()->user()->id,
-            'tracking_no' => 'order-'.Str::random(10),
+            'user_id' => auth()->user()->id,
+            'tracking_no' => 'order-' . Str::random(10),
             'fullname' => $this->fullname,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -81,48 +108,26 @@ class CheckoutShow extends Component
             'payment_id' => $this->payment_id,
         ]);
 
-        foreach($this->carts as $cartItem){
-            $orderItems = Orderitem::create([
+        foreach ($this->carts as $cartItem) {
+            Orderitem::create([
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product_id,
-                'product_color_id' =>$cartItem->product_color_id,
-                'quantity' =>$cartItem->quantity,
-                'price' =>$cartItem->product->selling_price
+                'product_color_id' => $cartItem->product_color_id,
+                'quantity' => $cartItem->quantity,
+                'price' => $cartItem->product->selling_price
             ]);
-            if($cartItem->product_color_id != NULL){
+            if ($cartItem->product_color_id != NULL) {
                 $cartItem->productColor()->where('id', $cartItem->product_color_id)->decrement('quantity', $cartItem->quantity);
-            }else{
+            } else {
                 $cartItem->product()->where('id', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
             }
         }
         return $order;
-
     }
 
-    public function codOrder(){
-        $this->payment_mode = 'Cash on Delivery';
-        $codOrder = $this->placeOrder();
-        if($codOrder){
-            Cart::where('user_id', auth()->user()->id)->delete();
-            try {
-                $order = Order::findOrFail($codOrder->id);
-                Mail::to("$order->email")->send(new PlaceOrderMailable($order));
-            } catch (\Exception $e) {
-            }
-            session()->flash('message', 'Order Placed Successfully');
-            $this->dispatchBrowserEvent('message', [
-                'text' =>'Order Placed Successfully',
-                'type' =>'success',
-                'status' =>200
-            ]);
-            return redirect()->to('thank-you');
-        }else{
-            $this->dispatchBrowserEvent('message', [
-                'text' =>'Something Went Wrong',
-                'type' =>'error',
-                'status' =>500
-            ]);
-        }
+    public function validationForAll()
+    {
+        $this->validate();
     }
 
     public function totalProductAmount()
@@ -137,19 +142,20 @@ class CheckoutShow extends Component
 
     public function render()
     {
+
         $phone = $this->phone;
         $pincode = $this->pincode;
         $address = $this->address;
-
+        
         $this->fullname = auth()->user()->name;
         $this->email = auth()->user()->email;
-        
+
         $this->phone = auth()->user()->userDetail->phone ?? $phone ?? '';
         $this->pincode = auth()->user()->userDetail->pin_code ?? $pincode ?? '';
         $this->address = auth()->user()->userDetail->address ?? $address ?? '';
 
         $this->totalProductAmount = $this->totalProductAmount();
-        return view('livewire.frontend.checkout.checkout-show',[
+        return view('livewire.frontend.checkout.checkout-show', [
             'totalProductAmount' => $this->totalProductAmount
         ]);
     }

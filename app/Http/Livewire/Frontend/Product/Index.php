@@ -14,7 +14,7 @@ class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $products, $category, $brandInputs = [], $priceInput, $showLimit, $sortBy;
+    public $products, $category, $brandInputs = [], $priceInput;
 
     protected $queryString = [
         'brandInputs' => ['except' => '', 'as' => 'brand'],
@@ -58,7 +58,7 @@ class Index extends Component
 
     public function addToCart(int $productId)
     {
-        $product = Product::findOrFail($productId)->toArray();
+        $product = json_decode(Product::findOrFail($productId), true);
         $productColors = json_decode(ProductColor::where('id', $productId)->get(), true);
         if (Auth::check()) {
             if ($product) {
@@ -77,7 +77,7 @@ class Index extends Component
                             Cart::create([
                                 'user_id' => auth()->user()->id,
                                 'product_id' => $productId,
-                                'product_color_id' => $this->productColorId,
+                                'product_color_id' => 1,
                                 'quantity' => 1
                             ]);
                             $this->emit('CartAddedUpdated');
