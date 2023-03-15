@@ -28,7 +28,7 @@ class CheckoutShow extends Component
             'fullname' => 'required|string|max:121',
             'email' => 'required|email|max:121',
             'phone' => 'required|digits:10',
-            'pincode' => 'required|digits:6',
+            'pincode' => 'required',
             'address' => 'required|string|max:500',
         ];
     }
